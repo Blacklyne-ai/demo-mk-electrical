@@ -1,0 +1,215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { services, helpWithList, pricingBlock } from '../../data/services';
+import { reviews } from '../../data/reviews';
+
+const googleReviews = reviews.filter((r) => r.source === 'google');
+
+// Verbatim „Useful to know"-Blöcke der alten Services-Seite
+const knowBefore = [
+  {
+    icon: 'Plug',
+    title: 'PAT testing',
+    paragraphs: [
+      'Portable Appliance Testing (PAT) involves checking electrical items that plug into a socket and can be moved. This includes appliances such as: microwave, kettle, toaster, washing machine, tumble dryer, dishwasher, food processor, office equipment and other plug-in devices.',
+      'PAT testing helps landlords and businesses ensure that electrical equipment is safe and in good working order.',
+      'It can also provide documented proof of safety, which may be requested by letting agents, local councils, insurance providers and health & safety inspections.',
+      'Regular testing reduces risk, supports compliance, and gives peace of mind that your appliances are safe to use.',
+    ],
+    href: '/services/pat-testing',
+  },
+  {
+    icon: 'FileCheck',
+    title: 'EICR testing',
+    paragraphs: [
+      'We are sometimes asked why our EICR prices are higher than some other companies. The reason is simple: our inspections are more thorough.',
+      'We test 50% per circuit, which is significantly more comprehensive than many lower-cost inspections that may test only 15–20%.',
+      'When comparing quotes, always ask: “What percentage of the installation will be tested?” Price should reflect the level of inspection — not just the certificate.',
+      'We also include clear descriptions and supporting photos where needed, helping ensure accurate remedial quotes and fewer surprises. For rental properties, EICRs are typically required every 3–5 years.',
+      'Our advice: choose a qualified electrician who can both test and carry out any remedial work properly, giving you clarity, compliance, and peace of mind.',
+    ],
+    href: '/services/eicr-testing',
+  },
+  {
+    icon: 'PlugZap',
+    title: 'EV chargers',
+    paragraphs: [
+      'We are fully qualified and experienced in installing electric vehicle (EV) charging points and are registered with OLEV.',
+      'As more homes move toward electric heating and electric vehicles, installing a home charging point is becoming an increasingly practical and convenient solution. Having your own charger at home offers faster charging, greater convenience, lower long-term running costs and increased property appeal.',
+      'Installation is usually straightforward — provided your property meets the necessary electrical and space requirements. We are happy to assess your property and advise accordingly.',
+      'If you are considering installing an EV charging point, it’s important to use a properly qualified and approved installer to ensure safety, compliance, and eligibility for any available grants.',
+    ],
+    href: '/services/ev-chargers',
+  },
+];
+---
+
+<Layout
+  current="/services"
+  title="Services | MK Electrical London — EICRs, PAT, Rewiring, Fuse Boards, EV Chargers"
+  description="Whatever you need — big or small. EICR testing (50% per circuit), PAT testing, rewiring, fuse board replacements, EV chargers and fault finding across most of London."
+>
+  <PageHero
+    crumb="Services"
+    eyebrow="Our services"
+    title="Whatever you need — <em>big or small,</em> we’re here to help."
+    subtitle="Covering most of London, we provide a wide range of electrical services for both homes and businesses. From small jobs to full installations, no job is too minor or too complex."
+    image="/images/work/consumer-unit.jpg"
+    imageAlt="Neatly wired consumer unit by MK Electrical London"
+    primary={{ href: '/contact', label: 'Get a free estimate' }}
+    secondary={{ href: '#know-before', label: 'Useful to know before booking' }}
+  />
+
+  <!-- Service-Grid -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="What we do"
+        title="Six specialisms. <em>One trusted team.</em>"
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mt-12">
+        {services.map((s, i) => (
+          <a href={`/services/${s.slug}`} class={`card-feature group flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <div class="flex items-start justify-between mb-5">
+              <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-ink text-white">
+                <Icon name={s.icon} size={22} strokeWidth={2} />
+              </span>
+              {s.emergency && (
+                <span class="inline-flex items-center gap-2 text-[0.62rem] font-mono font-semibold uppercase tracking-[0.16em] text-muted">
+                  <span class="status-dot status-dot-signal"></span>
+                  24hrs on the van
+                </span>
+              )}
+            </div>
+            <h3 class="font-display font-bold text-lg text-ink leading-snug mb-2">{s.name}</h3>
+            <p class="text-muted text-[0.92rem] leading-relaxed flex-1">{s.short}</p>
+            <span class="inline-flex items-center gap-2 text-ink font-display font-semibold text-[0.88rem] mt-5 transition-all duration-300 group-hover:gap-3.5">
+              Learn more
+              <Icon name="ArrowRight" size={15} strokeWidth={2.4} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- „We can help with" — verbatim Liste -->
+  <section class="section-paper py-24 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 fade-in">
+          <span class="eyebrow mb-5">The day-to-day list</span>
+          <h2 class="heading-lg text-balance mb-6">We can <em class="accent-serif">help with:</em></h2>
+          <p class="text-muted leading-relaxed text-pretty">
+            The everyday jobs that keep a London property running — alongside the bigger projects. If it’s electrical, it’s ours.
+          </p>
+          <a href="/contact" class="btn btn-ink btn-lg mt-8">
+            Get a free estimate!
+            <Icon name="ArrowRight" size={16} strokeWidth={2.5} />
+          </a>
+        </div>
+        <div class="lg:col-span-7 fade-in stagger-1">
+          <ul class="grid sm:grid-cols-2 gap-3">
+            {helpWithList.map((item) => (
+              <li class="flex items-center gap-3 bg-white border border-line rounded-2xl px-5 py-4">
+                <span class="w-6 h-6 rounded-full bg-ink text-white inline-flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={13} strokeWidth={3} />
+                </span>
+                <span class="text-ink font-display font-semibold text-[0.95rem]">{item}</span>
+              </li>
+            ))}
+            <li class="flex items-center gap-3 bg-ink text-white rounded-2xl px-5 py-4">
+              <span class="w-6 h-6 rounded-full bg-white text-ink inline-flex items-center justify-center flex-shrink-0">
+                <Icon name="Info" size={13} strokeWidth={2.6} />
+              </span>
+              <span class="font-display font-semibold text-[0.95rem]">If you’re unsure what you need, we’re always happy to advise.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preis-Transparenz (verbatim) -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Transparent pricing</span>
+          <h2 class="heading-lg text-balance mb-6">For larger projects, pricing is provided <em class="accent-serif">individually.</em></h2>
+          <p class="text-muted text-lg mb-7">{pricingBlock.intro}</p>
+          <ul class="space-y-3">
+            {pricingBlock.items.map((item, i) => (
+              <li class="flex items-center gap-4">
+                <span class="w-9 h-9 rounded-xl bg-paper border border-line text-ink inline-flex items-center justify-center flex-shrink-0 font-mono font-bold text-sm">{i + 1}</span>
+                <span class="text-ink font-display font-semibold">{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-muted leading-relaxed mt-7 text-pretty">{pricingBlock.outro}</p>
+          <p class="text-muted-light text-[0.88rem] mt-4">
+            Please see our <a href="/terms" class="underline underline-offset-2 hover:text-ink transition">Terms &amp; Conditions</a> for further information.
+          </p>
+        </div>
+        <div class="photo-frame fade-in stagger-1">
+          <img src="/images/work/bathroom-fulham.jpg" alt="High-end bathroom refurbishment with electrical installation by MK Electrical London" width="1100" height="1467" class="w-full aspect-[4/5] object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Useful to know before booking (verbatim) -->
+  <section id="know-before" class="section-stone py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="Useful to know before booking"
+        title="The honest small print — <em>before you book.</em>"
+        intro="Straight answers on the three services people ask about most."
+      />
+      <div class="space-y-4 mt-12 max-w-4xl">
+        {knowBefore.map((k, i) => (
+          <details class={`group bg-white border border-line rounded-3xl overflow-hidden fade-in stagger-${i + 1}`}>
+            <summary class="flex items-center gap-4 cursor-pointer list-none px-6 md:px-8 py-6 select-none">
+              <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-ink text-white flex-shrink-0">
+                <Icon name={k.icon} size={22} strokeWidth={2} />
+              </span>
+              <span class="font-display font-bold text-ink text-lg flex-1">{k.title}</span>
+              <span class="w-9 h-9 rounded-full border border-line inline-flex items-center justify-center text-ink transition-transform duration-300 group-open:rotate-180 flex-shrink-0">
+                <Icon name="ChevronDown" size={17} strokeWidth={2.4} />
+              </span>
+            </summary>
+            <div class="px-6 md:px-8 pb-7 md:pl-24 space-y-3.5 text-muted leading-relaxed">
+              {k.paragraphs.map((p) => <p>{p}</p>)}
+              <a href={k.href} class="arrow-link !text-[0.9rem]">
+                More on {k.title}
+                <Icon name="ArrowRight" size={14} strokeWidth={2.4} />
+              </a>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews von der alten Services-Seite (via Google) -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="From the job sheet"
+        title="Reviews from <em>real jobs.</em>"
+        ctaHref="/reviews"
+        ctaLabel="All reviews"
+      />
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6 mt-12">
+        {googleReviews.map((r, i) => <ReviewCard review={r} stagger={(i % 4) + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

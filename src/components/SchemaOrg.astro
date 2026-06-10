@@ -1,0 +1,42 @@
+---
+// Schema.org Electrician/LocalBusiness — nur belegte Fakten,
+// kein erfundenes Rating.
+import { site } from '../data/site';
+interface Props {
+  schema?: object | null;
+}
+const { schema = null } = Astro.props;
+
+const base = {
+  '@context': 'https://schema.org',
+  '@type': 'Electrician',
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  telephone: site.phoneIntl,
+  email: site.email,
+  foundingDate: '1994',
+  image: new URL('/images/og-image.jpg', site.url).toString(),
+  logo: new URL('/logo-2.png', site.url).toString(),
+  sameAs: [site.instagramUrl],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${site.address.unit}, ${site.address.estate}, ${site.address.street}`,
+    addressLocality: site.address.city,
+    postalCode: site.address.postcode,
+    addressCountry: site.address.countryCode,
+  },
+  areaServed: ['Fulham', 'Chelsea', 'Kensington', 'Clapham', 'Mayfair', 'Putney', 'Barnes', 'South West London'],
+  knowsAbout: [
+    'EICR testing',
+    'PAT testing',
+    'Rewiring',
+    'Fuse board replacement',
+    'EV charger installation',
+    'Electrical fault finding',
+  ],
+};
+
+const json = JSON.stringify(schema ? { ...base, ...schema } : base);
+---
+<script type="application/ld+json" set:html={json} />

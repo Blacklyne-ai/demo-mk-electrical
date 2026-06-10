@@ -1,0 +1,43 @@
+---
+// Finales CTA-Band (Dark). Footer bleibt Info-only — keine doppelten CTAs.
+import Icon from './Icon.astro';
+import { site, telLink, whatsappLink } from '../data/site';
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'The service we’d expect <em>ourselves.</em> For your home too.',
+  text = 'Family-run since 1994. NICEIC Approved. Over 5,000 happy customers across South West London — one call and you’re in safe hands.',
+} = Astro.props;
+---
+<section class="section-ink py-20 md:py-24 relative overflow-hidden">
+  <div class="absolute inset-0 grid-overlay grid-overlay-fade opacity-70" aria-hidden="true"></div>
+  <span class="ghost-mark ghost-mark-light -right-10 -bottom-24" data-text="MK" aria-hidden="true"></span>
+
+  <div class="container-mk relative">
+    <div class="max-w-3xl fade-in">
+      <span class="eyebrow eyebrow-light mb-5">Book your electrician</span>
+      <h2 class="heading-lg text-white text-balance mb-5 section-title" set:html={title} />
+      <p class="text-lg text-white/70 leading-relaxed mb-8 max-w-2xl text-pretty">{text}</p>
+      <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+        <a href="/contact" class="btn btn-light btn-lg">
+          Book now
+          <Icon name="ArrowRight" size={16} strokeWidth={2.5} />
+        </a>
+        <a href={telLink} class="btn btn-ghost btn-lg">
+          <Icon name="Phone" size={17} strokeWidth={2.3} />
+          {site.phone}
+        </a>
+        <a href={whatsappLink} target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
+          <Icon name="MessageCircle" size={18} strokeWidth={2.2} />
+          WhatsApp
+        </a>
+      </div>
+      <p class="text-sm text-white/45 mt-6 flex items-center gap-2">
+        <Icon name="MapPin" size={15} strokeWidth={2} />
+        {site.address.unit}, {site.address.estate}, {site.address.street}, {site.address.city} {site.address.postcode}
+      </p>
+    </div>
+  </div>
+</section>

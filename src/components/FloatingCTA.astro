@@ -1,0 +1,17 @@
+---
+// Mobile Floating-Bar — bewusst schlank (keine fetten Controls).
+import { telLink, whatsappLink, site } from '../data/site';
+import Icon from './Icon.astro';
+---
+<div class="floating-mobile fixed bottom-3 left-0 right-0 z-40 px-3 gap-2 pointer-events-none">
+  <a href={telLink} class="btn btn-ink pointer-events-auto flex-1" aria-label={`Call us on ${site.phone}`}>
+    <Icon name="Phone" size={15} strokeWidth={2.3} />
+    <span class="text-[0.8rem] mono">{site.phone}</span>
+  </a>
+  <a href="/contact" class="btn btn-light pointer-events-auto" aria-label="Book now">
+    Book now
+  </a>
+  <a href={whatsappLink} target="_blank" rel="noopener" class="btn btn-whatsapp pointer-events-auto !px-3.5" aria-label="Message us on WhatsApp">
+    <Icon name="MessageCircle" size={18} strokeWidth={2.2} />
+  </a>
+</div>

@@ -1,0 +1,30 @@
+---
+// Service-Card für das dunkle Homepage-Grid (3x2, symmetrisch).
+// Icon + Name + 1 Satz + „Learn more →" + Hover-Lift + Top-Stroke.
+import Icon from './Icon.astro';
+import type { Service } from '../data/services';
+interface Props {
+  service: Service;
+  index?: number;
+}
+const { service, index = 0 } = Astro.props;
+---
+<a href={`/services/${service.slug}`} class={`card-dark group flex flex-col fade-in stagger-${(index % 3) + 1}`}>
+  <div class="flex items-start justify-between mb-5">
+    <span class="w-12 h-12 rounded-2xl bg-white text-ink inline-flex items-center justify-center flex-shrink-0">
+      <Icon name={service.icon} size={22} strokeWidth={2} />
+    </span>
+    {service.emergency && (
+      <span class="inline-flex items-center gap-2 text-[0.62rem] font-mono font-semibold uppercase tracking-[0.16em] text-white/70">
+        <span class="status-dot status-dot-signal"></span>
+        24hrs on the van
+      </span>
+    )}
+  </div>
+  <h3 class="text-white font-display font-bold text-lg leading-snug mb-2">{service.name}</h3>
+  <p class="text-white/60 text-[0.9rem] leading-relaxed flex-1">{service.short}</p>
+  <span class="inline-flex items-center gap-2 text-white font-display font-semibold text-[0.88rem] mt-5 transition-all duration-300 group-hover:gap-3.5">
+    Learn more
+    <Icon name="ArrowRight" size={15} strokeWidth={2.4} />
+  </span>
+</a>

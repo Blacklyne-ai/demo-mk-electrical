@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import InstagramIcon from '../components/InstagramIcon.astro';
+import { partners } from '../data/content';
+
+const partnerIcons = ['Paintbrush', 'Droplets', 'Ruler'];
+---
+
+<Layout
+  current="/trade-partners"
+  title="Trade Partners | MK Electrical London — Trusted Local Trades"
+  description="We work closely with a trusted network of local trades: K Wyatt Decorators, London Efficiency (plumbing & heating) and LIATE DESIGN (interiors). Recommended because we know them personally."
+>
+  <PageHero
+    crumb="Trade Partners"
+    eyebrow="Trade partners"
+    title="Trades we’d let into <em>our own home.</em>"
+    subtitle="We work closely with a trusted network of local trades. If your project requires additional services, we can confidently recommend reliable professionals who share our standards and values."
+    ghost="SW6"
+  />
+
+  <section class="bg-white py-20 md:py-28">
+    <div class="container-mk space-y-8">
+      {partners.map((p, i) => (
+        <article class={`card-feature !p-0 overflow-hidden fade-in ${i % 2 ? 'lg:ml-16' : 'lg:mr-16'}`}>
+          <div class="grid md:grid-cols-12 items-stretch">
+            <div class="md:col-span-4 bg-paper border-b md:border-b-0 md:border-r border-line flex flex-col items-center justify-center gap-5 p-10">
+              <img src={p.logo} alt={`${p.name} logo`} width="280" height="120" class="max-h-20 w-auto object-contain" loading="lazy" />
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-ink text-white">
+                <Icon name={partnerIcons[i]} size={20} strokeWidth={2} />
+              </span>
+            </div>
+            <div class="md:col-span-8 p-8 md:p-10">
+              <h2 class="font-display font-bold text-ink text-2xl mb-4">{p.name}</h2>
+              <div class="space-y-3 text-muted leading-relaxed text-[0.98rem]">
+                {p.body.map((para) => <p>{para}</p>)}
+              </div>
+              <a href={p.instagramUrl} target="_blank" rel="noopener" class="btn btn-outline mt-7">
+                <InstagramIcon size={16} strokeWidth={2} />
+                @{p.instagram}
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Warum wir empfehlen -->
+  <section class="section-paper py-20 md:py-24">
+    <div class="container-narrow text-center">
+      <span class="eyebrow eyebrow-center mb-6 fade-in">Why we recommend</span>
+      <p class="accent-serif text-ink text-2xl md:text-3xl leading-snug text-balance fade-in stagger-1">
+        “We believe in clear communication, transparency, and building long-term relationships within the community.”
+      </p>
+      <p class="text-muted mt-6 fade-in stagger-2">— straight from our about page, and the reason this page exists.</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

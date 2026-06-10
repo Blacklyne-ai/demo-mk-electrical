@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { telLink, site } from '../data/site';
+---
+
+<Layout title="Page not found | MK Electrical London" noindex>
+  <section class="section-paper relative overflow-hidden min-h-[70vh] flex items-center pt-28 pb-20">
+    <span class="ghost-mark right-0 top-10" data-text="404" aria-hidden="true"></span>
+    <div class="container-mk relative z-10">
+      <span class="eyebrow mb-6">Fault found</span>
+      <h1 class="heading-display text-balance max-w-3xl mb-6">
+        This circuit goes <em class="accent-serif">nowhere.</em>
+      </h1>
+      <p class="text-lg text-muted max-w-xl mb-9 text-pretty">
+        The page you’re looking for has been moved, removed, or never wired up in the first place. Let’s get you back on the board.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="/" class="btn btn-ink btn-lg">
+          Back to the homepage
+          <Icon name="ArrowRight" size={16} strokeWidth={2.5} />
+        </a>
+        <a href={telLink} class="btn btn-outline btn-lg">
+          <Icon name="Phone" size={17} strokeWidth={2.3} />
+          {site.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

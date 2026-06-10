@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import InstagramIcon from '../components/InstagramIcon.astro';
+import { site } from '../data/site';
+import { story, trust } from '../data/content';
+import { reviews } from '../data/reviews';
+
+const clientTypes = [
+  { icon: 'House', label: 'Returning homeowners' },
+  { icon: 'KeyRound', label: 'Landlords and tenants' },
+  { icon: 'Building2', label: 'Local businesses' },
+  { icon: 'GraduationCap', label: 'Schools and educational settings' },
+];
+
+const aboutReviews = reviews.filter((r) => ['Faye', 'Nicky', 'John', 'Joseph'].includes(r.name));
+---
+
+<Layout
+  current="/about"
+  title="About | MK Electrical London — A Family Business Since 1994"
+  description="From Mario to Martin: the story of MK Electrical London. Family-run electrical contractors in Fulham since 1994 — over 5,000 happy customers across South West London."
+>
+  <PageHero
+    crumb="About"
+    eyebrow="Who are we?"
+    title="From Mario to Martin. A <em>family business</em> since 1994."
+    subtitle="Founded with a simple goal: provide reliable, honest electrical services to the local community."
+    image="/images/family-selfie.jpg"
+    imageAlt="Martin, Zak, Rory and Laura — the family behind MK Electrical London"
+    ghost="1994"
+  />
+
+  <!-- Die Story (verbatim) -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div class="lg:col-span-7 fade-in">
+          <span class="eyebrow mb-5">The story</span>
+          <h2 class="heading-lg text-balance mb-7">It started with a name <em class="accent-serif">nobody could remember.</em></h2>
+          <div class="space-y-4 text-muted leading-relaxed text-[1.05rem] max-w-2xl">
+            <p>
+              MK Electrical London originally began in 1994 under the name
+              <strong class="text-ink font-semibold">“1st Call MK of Fulham Electrical Services LTD”</strong>
+            </p>
+            <p class="accent-serif text-ink/80 text-xl">(A bit of a mouthful — but we’ll blame the Yellow Pages algorithm back then!)</p>
+            <p>The company was founded by Mario, Martin’s father, with a simple goal: provide reliable, honest electrical services to the local community.</p>
+            <p>In 2010, the business was passed to Martin, who, alongside his wife Laura, has taken the company from strength to strength — proudly keeping it a family-run business at heart.</p>
+          </div>
+        </div>
+        <div class="lg:col-span-5 fade-in stagger-1">
+          <div class="photo-frame">
+            <img src="/images/story-generations.jpg" alt="Three generations silhouette — the MK Electrical London story" width="1100" height="1100" class="w-full aspect-square object-cover" loading="lazy" />
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="card !p-5 text-center">
+              <p class="big-number text-ink" style="font-size: clamp(1.8rem,4vw,2.4rem);">1994</p>
+              <p class="text-[0.65rem] font-mono uppercase tracking-[0.16em] text-muted mt-1.5">Founded by Mario</p>
+            </div>
+            <div class="card !p-5 text-center">
+              <p class="big-number text-ink" style="font-size: clamp(1.8rem,4vw,2.4rem);">2010</p>
+              <p class="text-[0.65rem] font-mono uppercase tracking-[0.16em] text-muted mt-1.5">Passed to Martin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built on Experience & Community (verbatim) -->
+  <section class="section-paper py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="Built on experience & community"
+        title="One of the most established electrical companies in <em>South West London.</em>"
+        intro="With over 5,000 happy customers, MK Electrical is now one of the most established electrical companies in South West London. We regularly work with:"
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
+        {clientTypes.map((c, i) => (
+          <div class={`card-feature !p-7 fade-in stagger-${(i % 4) + 1}`}>
+            <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-ink text-white mb-4">
+              <Icon name={c.icon} size={22} strokeWidth={2} />
+            </span>
+            <p class="font-display font-bold text-ink leading-snug">{c.label}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-muted leading-relaxed max-w-3xl mt-10 fade-in">{story.experience.outro}</p>
+    </div>
+  </section>
+
+  <!-- Our Approach — der Leitsatz als Editorial-Statement -->
+  <section class="section-stone py-24 md:py-32 relative overflow-hidden">
+    <span class="ghost-mark -right-12 -top-20" data-text="MK" aria-hidden="true"></span>
+    <div class="container-narrow relative text-center">
+      <span class="eyebrow eyebrow-center mb-6 fade-in">Our approach — our main aim is simple</span>
+      <p class="accent-serif text-ink text-3xl md:text-5xl leading-tight text-balance fade-in stagger-1">
+        “To provide the level of service we would expect ourselves.”
+      </p>
+      <div class="max-w-2xl mx-auto mt-10 space-y-4 text-muted leading-relaxed fade-in stagger-2">
+        {story.approach.body.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Transparency (verbatim) -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Trust &amp; transparency</span>
+          <h2 class="heading-lg text-balance mb-6">Honesty is the whole <em class="accent-serif">business model.</em></h2>
+          <p class="text-lg text-muted leading-relaxed text-pretty">{trust.intro}</p>
+          <ul class="mt-7 space-y-3">
+            {trust.priorities.map((p) => (
+              <li class="flex items-center gap-3 text-ink font-display font-semibold text-[1.02rem]">
+                <span class="w-6 h-6 rounded-full bg-ink text-white inline-flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={13} strokeWidth={3} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <p class="text-muted mt-7">{trust.goal}</p>
+        </div>
+        <div class="flex flex-col justify-center fade-in stagger-1">
+          <figure class="relative border border-line rounded-[var(--radius-xl)] bg-paper p-8 md:p-12">
+            <Icon name="Quote" size={36} strokeWidth={1.5} class="text-ink/15 mb-5" />
+            <blockquote class="accent-serif text-ink text-xl md:text-2xl leading-snug text-pretty">
+              “{trust.respect}”
+            </blockquote>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A Family Business + Signatur (verbatim) -->
+  <section class="section-paper py-24 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="relative fade-in">
+          <div class="photo-frame">
+            <img src="/images/hero-martin-zak.jpg" alt="Martin and Zak in front of the MK Electrical London van" width="1300" height="1733" class="w-full aspect-[4/5] object-cover" loading="lazy" />
+          </div>
+          <div class="card-glass absolute -bottom-5 left-6 px-5 py-3.5 flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-ink text-white inline-flex items-center justify-center">
+              <Icon name="Users" size={17} strokeWidth={2.2} />
+            </span>
+            <p class="text-[0.68rem] font-mono font-semibold uppercase tracking-[0.14em]">Two small boys,<br /><span class="text-muted">already helping out</span></p>
+          </div>
+        </div>
+        <div class="fade-in stagger-1">
+          <span class="eyebrow mb-5">{story.family.title}</span>
+          <h2 class="heading-lg text-balance mb-7">The next generation is <em class="accent-serif">already on site.</em></h2>
+          <div class="space-y-4 text-muted leading-relaxed text-[1.05rem]">
+            {story.family.body.map((p) => <p>{p}</p>)}
+          </div>
+          <a href={site.instagramUrl} target="_blank" rel="noopener" class="btn btn-outline mt-7">
+            <InstagramIcon size={16} strokeWidth={2} />
+            @{site.instagram}
+          </a>
+          <div class="mt-10 pt-8 border-t border-line">
+            <p class="text-muted text-[0.95rem]">{story.family.signoff}</p>
+            <p class="signature mt-2">{story.family.signature}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="bg-white py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="Word of mouth"
+        title="Don’t take it from us — take it from <em>SW6 to W6.</em>"
+        ctaHref="/reviews"
+        ctaLabel="All reviews"
+      />
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6 mt-12">
+        {aboutReviews.map((r, i) => <ReviewCard review={r} stagger={(i % 4) + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

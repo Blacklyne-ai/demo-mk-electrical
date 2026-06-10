@@ -1,0 +1,31 @@
+---
+// Google-Maps-Embed per Address-Query (kein API-Key nötig).
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<div class={`photo-frame relative ${className}`}>
+  <iframe
+    src={site.googleMapsEmbed}
+    title="Map — MK Electrical London, Townmead Business Centre, Fulham SW6"
+    width="600"
+    height="450"
+    class="w-full h-full min-h-[320px] grayscale-[35%] contrast-[1.02]"
+    style="border:0;"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+  <a
+    href={site.googleMapsUrl}
+    target="_blank"
+    rel="noopener"
+    class="absolute bottom-4 left-4 btn btn-ink btn-sm shadow-lg"
+  >
+    <Icon name="Navigation" size={14} strokeWidth={2.2} />
+    Open in Google Maps
+  </a>
+</div>

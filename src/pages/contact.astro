@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import MapBlock from '../components/MapBlock.astro';
+import Icon from '../components/Icon.astro';
+import InstagramIcon from '../components/InstagramIcon.astro';
+import { site, telLink, mailLink, whatsappLink, mailFor } from '../data/site';
+
+const bookingMail = mailFor('Booking request — MK Electrical London');
+---
+
+<Layout
+  current="/contact"
+  title="Contact & Book Now | MK Electrical London — 0207-385-5016"
+  description="Book your electrician: call 0207-385-5016, WhatsApp us directly or email mkelectricallondon@gmail.com. Unit 3, Townmead Business Centre, Fulham SW6 2UP."
+>
+  <PageHero
+    crumb="Contact"
+    eyebrow="Contact us"
+    title="Whether your query is big or small, <em>we’re here to help.</em>"
+    subtitle="We’ll get back to you promptly to discuss your needs and next steps. The more detail you can give us about the job, the quicker and smoother your booking will be."
+    ghost="SW6"
+  />
+
+  <!-- Kontakt-Tiles (kein Formular — direkter Draht) -->
+  <section class="bg-white py-20 md:py-24">
+    <div class="container-mk">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <a href={telLink} class="tile group fade-in stagger-1">
+          <span class="tile-icon"><Icon name="Phone" size={21} strokeWidth={2} /></span>
+          <div>
+            <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light mb-1">Call us</p>
+            <p class="font-display font-bold text-ink text-lg leading-tight mono">{site.phone}</p>
+          </div>
+          <p class="text-[0.85rem] text-muted-light leading-snug">Quickest for bookings and advice.</p>
+        </a>
+
+        <a href={whatsappLink} target="_blank" rel="noopener" class="tile group fade-in stagger-2">
+          <span class="tile-icon !bg-green"><Icon name="MessageCircle" size={21} strokeWidth={2} /></span>
+          <div>
+            <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light mb-1">WhatsApp us directly</p>
+            <p class="font-display font-bold text-ink text-lg leading-tight">Message MK</p>
+          </div>
+          <p class="text-[0.85rem] text-muted-light leading-snug">Photos of the job help us quote faster.</p>
+        </a>
+
+        <a href={bookingMail} class="tile group fade-in stagger-3">
+          <span class="tile-icon"><Icon name="Mail" size={21} strokeWidth={2} /></span>
+          <div>
+            <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light mb-1">Email</p>
+            <p class="font-display font-bold text-ink text-[1.02rem] leading-tight break-all">{site.email}</p>
+          </div>
+          <p class="text-[0.85rem] text-muted-light leading-snug">Providing as much information as possible helps us prepare in advance.</p>
+        </a>
+
+        <a href={site.instagramUrl} target="_blank" rel="noopener" class="tile group fade-in stagger-4">
+          <span class="tile-icon tile-icon-outline"><InstagramIcon size={21} strokeWidth={2} /></span>
+          <div>
+            <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light mb-1">Instagram</p>
+            <p class="font-display font-bold text-ink text-lg leading-tight">@{site.instagram}</p>
+          </div>
+          <p class="text-[0.85rem] text-muted-light leading-snug">Follow our journey — and spot the boys.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WhatsApp-QR + Booking-Hinweise -->
+  <section class="section-paper py-20 md:py-24">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Book now</span>
+          <h2 class="heading-lg text-balance mb-6">Booking is a <em class="accent-serif">two-minute job.</em></h2>
+          <ul class="space-y-5 max-w-lg">
+            <li class="flex items-start gap-4">
+              <span class="w-9 h-9 rounded-xl bg-white border border-line text-ink inline-flex items-center justify-center flex-shrink-0 font-mono font-bold text-sm">1</span>
+              <p class="text-muted leading-relaxed"><strong class="text-ink font-semibold">Tell us what’s up</strong> — by phone, WhatsApp or email. Address, what needs doing, and any photos.</p>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-9 h-9 rounded-xl bg-white border border-line text-ink inline-flex items-center justify-center flex-shrink-0 font-mono font-bold text-sm">2</span>
+              <p class="text-muted leading-relaxed"><strong class="text-ink font-semibold">Get a clear estimate</strong> — quotations are clear, transparent, and tailored to your specific job.</p>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-9 h-9 rounded-xl bg-white border border-line text-ink inline-flex items-center justify-center flex-shrink-0 font-mono font-bold text-sm">3</span>
+              <p class="text-muted leading-relaxed"><strong class="text-ink font-semibold">We turn up and sort it</strong> — supported from start to finish, the way we’d expect ourselves.</p>
+            </li>
+          </ul>
+          <div class="flex flex-col sm:flex-row gap-3 mt-9">
+            <a href={telLink} class="btn btn-ink btn-lg">
+              <Icon name="Phone" size={16} strokeWidth={2.3} />
+              {site.phone}
+            </a>
+            <a href={bookingMail} class="btn btn-outline btn-lg">
+              <Icon name="Mail" size={16} strokeWidth={2.1} />
+              Email a booking request
+            </a>
+          </div>
+        </div>
+
+        <div class="flex justify-center fade-in stagger-1">
+          <div class="card !p-8 text-center max-w-xs">
+            <p class="text-[0.7rem] font-mono font-semibold uppercase tracking-[0.18em] text-muted mb-5">Whatsapp us directly</p>
+            <img src="/images/whatsapp-qr.jpg" alt="WhatsApp QR code — scan to message MK Electrical London" width="380" height="320" class="w-56 mx-auto" loading="lazy" />
+            <p class="text-muted-light text-[0.85rem] mt-5">Scan with your phone</p>
+            <a href={whatsappLink} target="_blank" rel="noopener" class="btn btn-whatsapp btn-block mt-5">
+              <Icon name="MessageCircle" size={16} strokeWidth={2.2} />
+              Or tap to chat
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Standort -->
+  <section class="bg-white py-20 md:py-24">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Find us</span>
+          <h2 class="heading-lg text-balance mb-6">Fulham born, <em class="accent-serif">Fulham based.</em></h2>
+          <ul class="space-y-4 text-muted">
+            <li class="flex items-start gap-3.5">
+              <Icon name="MapPin" size={19} strokeWidth={2.1} class="text-ink mt-1 flex-shrink-0" />
+              <div>
+                <p class="font-display font-bold text-ink">{site.address.unit}, {site.address.estate}</p>
+                <p>{site.address.street}, {site.address.city} {site.address.postcode}</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3.5">
+              <Icon name="Navigation" size={19} strokeWidth={2.1} class="text-ink mt-1 flex-shrink-0" />
+              <p>Serving most London postcodes (excluding East London) — South West London is home turf.</p>
+            </li>
+            <li class="flex items-start gap-3.5">
+              <Icon name="ShieldCheck" size={19} strokeWidth={2.1} class="text-ink mt-1 flex-shrink-0" />
+              <p>NICEIC Approved Contractors · Part P Registered</p>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-in stagger-1">
+          <MapBlock class="min-h-[380px]" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

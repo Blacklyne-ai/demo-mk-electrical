@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { guide } from '../data/content';
+import { mailFor, site } from '../data/site';
+
+const requestLink = mailFor(`Free guide request: ${guide.title}`);
+---
+
+<Layout
+  current="/guides"
+  title="Guides | MK Electrical London — Free Electrical Checklist"
+  description="Free guides from MK Electrical London: the Electrical Checklist for Homeowners & Landlords. Honest, practical advice from a family business with 30+ years in the trade."
+>
+  <PageHero
+    crumb="Guides"
+    eyebrow="Guides"
+    title="Free knowledge, <em>no strings.</em>"
+    subtitle="Practical guides from three decades on London’s fuse boards — written to save you money, not to upsell you."
+    ghost="FREE"
+  />
+
+  <section class="bg-white py-20 md:py-28">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <!-- Guide-Card (das echte Produkt der alten Guides-Seite) -->
+        <div class="lg:col-span-5 fade-in">
+          <div class="card-feature !p-0 overflow-hidden">
+            <div class="bg-ink relative px-8 py-12 grid-overlay">
+              <span class="pill pill-dark mb-6">{guide.category}</span>
+              <Icon name="BookOpen" size={44} strokeWidth={1.5} class="text-white/90 mb-5" />
+              <h2 class="text-white font-display font-bold text-2xl leading-snug text-balance">{guide.title}</h2>
+            </div>
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-6">
+                <span class="big-number text-ink" style="font-size: 2rem;">{guide.price}</span>
+                <span class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light">PDF · by email</span>
+              </div>
+              <p class="text-muted text-[0.95rem] leading-relaxed mb-7">{guide.note}</p>
+              <a href={requestLink} class="btn btn-ink btn-block btn-lg">
+                <Icon name="Download" size={16} strokeWidth={2.2} />
+                Request your free copy
+              </a>
+              <p class="text-muted-light text-[0.78rem] text-center mt-3">Opens an email to {site.email}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warum es den Guide gibt -->
+        <div class="lg:col-span-7 fade-in stagger-1">
+          <span class="eyebrow mb-5">Why we wrote it</span>
+          <h2 class="heading-lg text-balance mb-6">A checklist that pays for itself — <em class="accent-serif">because it’s free.</em></h2>
+          <div class="space-y-4 text-muted leading-relaxed text-[1.02rem] max-w-xl">
+            <p>
+              We understand that the trades industry has sometimes created mistrust. That’s why we prioritise clear explanations, honest advice and transparent pricing — and why our guides cost nothing.
+            </p>
+            <p>
+              The Electrical Checklist for Homeowners &amp; Landlords walks you through what to look at in your property before you ever need to pick up the phone — and what documentation letting agents, councils and insurers may ask you for.
+            </p>
+            <p>
+              If anything on the checklist raises a question, we’re always happy to advise. No job is too minor or too complex.
+            </p>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 mt-9 max-w-xl">
+            <div class="card !p-6">
+              <Icon name="House" size={22} strokeWidth={2} class="text-ink mb-3" />
+              <p class="font-display font-bold text-ink text-[0.95rem]">For homeowners</p>
+              <p class="text-muted-light text-[0.85rem] mt-1 leading-snug">Know your installation before something trips.</p>
+            </div>
+            <div class="card !p-6">
+              <Icon name="KeyRound" size={22} strokeWidth={2} class="text-ink mb-3" />
+              <p class="font-display font-bold text-ink text-[0.95rem]">For landlords</p>
+              <p class="text-muted-light text-[0.85rem] mt-1 leading-snug">Stay compliant — EICRs, PAT, certificates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Prefer answers from <em>a human?</em>"
+    text="If you can’t find what you’re looking for, please don’t hesitate to contact us — we’ll do our best to provide answers quickly and clearly."
+  />
+</Layout>

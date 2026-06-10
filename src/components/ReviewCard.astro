@@ -1,0 +1,41 @@
+---
+// Review-Card — verbatim Zitat + echter Name + Postcode als Kontext.
+// source 'google' wird als Quelle markiert (Reviews von der alten
+// Services-Seite im Google-Format).
+import Icon from './Icon.astro';
+import type { Review } from '../data/reviews';
+interface Props {
+  review: Review;
+  stagger?: number;
+}
+const { review, stagger = 0 } = Astro.props;
+---
+<figure class={`card flex flex-col fade-in ${stagger ? `stagger-${stagger}` : ''}`}>
+  <div class="flex items-center justify-between mb-4">
+    <span class="stars" role="img" aria-label="5 star review">
+      {Array.from({ length: 5 }).map(() => <Icon name="Star" size={14} strokeWidth={1.5} />)}
+    </span>
+    {review.source === 'google' && (
+      <span class="text-[0.65rem] font-mono uppercase tracking-[0.14em] text-muted-light">via Google</span>
+    )}
+  </div>
+  <blockquote class="text-[0.95rem] leading-relaxed text-muted flex-1">
+    “{review.text}”
+  </blockquote>
+  {review.positives && (
+    <p class="text-[0.78rem] text-muted-light mt-4 leading-snug">
+      <span class="font-semibold text-ink/70">Positive:</span> {review.positives}
+    </p>
+  )}
+  <figcaption class="mt-5 pt-4 border-t border-line flex items-center gap-3">
+    <span class="w-9 h-9 rounded-full bg-ink text-white inline-flex items-center justify-center font-display font-bold text-sm flex-shrink-0" aria-hidden="true">
+      {review.name.charAt(0)}
+    </span>
+    <div>
+      <p class="font-display font-bold text-ink text-[0.92rem] leading-tight">{review.name}</p>
+      <p class="text-[0.78rem] text-muted-light mono mt-0.5">
+        {review.location}{review.postcode ? `, ${review.postcode}` : ''}
+      </p>
+    </div>
+  </figcaption>
+</figure>

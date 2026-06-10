@@ -1,0 +1,98 @@
+---
+import { site, nav, legalNav, areas, telLink, mailLink } from '../data/site';
+import { services } from '../data/services';
+import Icon from './Icon.astro';
+import InstagramIcon from './InstagramIcon.astro';
+---
+<footer class="section-ink relative overflow-hidden" role="contentinfo">
+  <div class="absolute inset-0 grid-overlay grid-overlay-fade opacity-60" aria-hidden="true"></div>
+
+  <div class="container-mk relative pt-16 md:pt-20 pb-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
+      <!-- Brand -->
+      <div class="lg:col-span-4">
+        <img src="/logo-2.png" alt="MK Electrical London — Est. 1994" width="304" height="251" class="h-24 w-auto rounded-full bg-white" loading="lazy" />
+        <p class="text-white/60 text-[0.95rem] leading-relaxed mt-5 max-w-xs text-pretty">
+          Family-run electrical contractors in Fulham since 1994. The service we would expect ourselves — for over 5,000 happy customers across South West London.
+        </p>
+        <div class="flex items-center gap-3 mt-6">
+          <a href={site.instagramUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white/70 hover:text-white transition text-sm font-display font-semibold">
+            <InstagramIcon size={18} strokeWidth={2} />
+            @{site.instagram}
+          </a>
+        </div>
+        <div class="flex items-center gap-4 mt-7">
+          <img src="/images/badges/niceic.png" alt="NICEIC Approved Contractor" width="120" height="77" class="h-12 w-auto rounded-md bg-white p-1.5" loading="lazy" />
+          <img src="/images/badges/part-p.png" alt="Part P Electrical Safety — Registered Installer" width="96" height="51" class="h-12 w-auto rounded-md bg-white p-1" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div class="lg:col-span-2">
+        <h3 class="text-white text-[0.72rem] font-mono font-semibold uppercase tracking-[0.2em] mb-5">Explore</h3>
+        <ul class="space-y-2.5 text-[0.95rem]">
+          {nav.map((item) => (
+            <li><a href={item.href} class="nav-link nav-link-light">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.72rem] font-mono font-semibold uppercase tracking-[0.2em] mb-5">Services</h3>
+        <ul class="space-y-2.5 text-[0.95rem]">
+          {services.map((s) => (
+            <li><a href={`/services/${s.slug}`} class="nav-link nav-link-light">{s.name}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Areas + Contact -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.72rem] font-mono font-semibold uppercase tracking-[0.2em] mb-5">Areas we cover</h3>
+        <ul class="flex flex-wrap gap-x-3 gap-y-1.5 text-[0.95rem] max-w-xs">
+          {areas.map((a) =>
+            a.linked ? (
+              <li><a href={`/areas/${a.slug}`} class="nav-link nav-link-light">{a.name}</a></li>
+            ) : (
+              <li class="text-white/45">{a.name}</li>
+            )
+          )}
+        </ul>
+        <p class="text-white/45 text-[0.82rem] mt-2.5">{site.serviceAreaNote}.</p>
+
+        <h3 class="text-white text-[0.72rem] font-mono font-semibold uppercase tracking-[0.2em] mt-8 mb-4">Contact</h3>
+        <ul class="space-y-2.5 text-[0.92rem] text-white/60">
+          <li class="flex items-start gap-2.5">
+            <Icon name="MapPin" size={16} strokeWidth={2} class="mt-0.5 flex-shrink-0 text-white/40" />
+            <span>{site.address.unit}, {site.address.estate},<br />{site.address.street}, {site.address.postcode}</span>
+          </li>
+          <li>
+            <a href={telLink} class="flex items-center gap-2.5 hover:text-white transition">
+              <Icon name="Phone" size={16} strokeWidth={2} class="flex-shrink-0 text-white/40" />
+              <span class="mono">{site.phone}</span>
+            </a>
+          </li>
+          <li>
+            <a href={mailLink} class="flex items-center gap-2.5 hover:text-white transition break-all">
+              <Icon name="Mail" size={16} strokeWidth={2} class="flex-shrink-0 text-white/40" />
+              {site.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Legal bar -->
+    <div class="pt-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <p class="text-white/40 text-[0.8rem]">
+        © 2026 {site.name} · {site.legalName} · Company No. {site.companyNo} · Registered office: {site.registeredAddress}
+      </p>
+      <div class="flex items-center gap-5 text-[0.85rem]">
+        {legalNav.map((l) => (
+          <a href={l.href} class="nav-link nav-link-light">{l.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

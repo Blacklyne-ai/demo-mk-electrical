@@ -1,0 +1,388 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import InstagramIcon from '../components/InstagramIcon.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import MapBlock from '../components/MapBlock.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, telLink, whatsappLink, mailLink, trustStrip, areas } from '../data/site';
+import { services } from '../data/services';
+import { featuredReviews } from '../data/reviews';
+import { story, trust, fourReasons, team } from '../data/content';
+---
+
+<Layout
+  current="/"
+  title="MK Electrical London | Family-run Electricians Fulham · South West London · Since 1994"
+  description="Family-run electrical contractors in Fulham since 1994. EICRs, PAT testing, rewiring, fuse boards, EV chargers — over 5,000 happy customers across South West London. NICEIC Approved."
+>
+  <!-- ════════ 1 · HERO ════════ -->
+  <section class="section-paper relative overflow-hidden">
+    <span class="ghost-mark -right-8 top-10 hidden md:block" data-text="MK" aria-hidden="true"></span>
+
+    <div class="container-mk relative z-10 pt-32 pb-10 md:pt-44 md:pb-16">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        <!-- Copy -->
+        <div class="lg:col-span-7">
+          <span class="eyebrow mb-6 fade-in">Family-run electrical contractors · South West London · Since 1994</span>
+          <h1 class="heading-display text-balance mb-6 fade-in stagger-1">
+            Two generations. One standard: <em class="accent-serif">the service we’d expect ourselves.</em>
+          </h1>
+          <p class="text-lg md:text-xl text-muted leading-relaxed max-w-2xl mb-9 text-pretty fade-in stagger-2">
+            Family-run electrical contractors in Fulham since 1994. From EICRs and rewiring to full refurbishments — over 5,000 happy customers across South West London.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 mb-10 fade-in stagger-3">
+            <a href="/contact" class="btn btn-ink btn-lg">
+              Book now
+              <Icon name="ArrowRight" size={16} strokeWidth={2.5} />
+            </a>
+            <a href={telLink} class="btn btn-outline btn-lg">
+              <Icon name="Phone" size={17} strokeWidth={2.3} />
+              {site.phone}
+            </a>
+          </div>
+          <div class="trust-strip text-ink/60 fade-in stagger-4">
+            {trustStrip.map((t) => <span>{t}</span>)}
+          </div>
+        </div>
+
+        <!-- Hero-Foto: Martin + Zak vor dem MK-Van (Original der alten Site) -->
+        <div class="lg:col-span-5 relative fade-in stagger-2">
+          <div class="photo-frame">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/hero-martin-zak-480.avif 480w, /images/hero-martin-zak-800.avif 800w, /images/hero-martin-zak-1300.avif 1300w"
+                sizes="(min-width: 1024px) 38vw, 92vw"
+              />
+              <img
+                src="/images/hero-martin-zak.jpg"
+                srcset="/images/hero-martin-zak-480.jpg 480w, /images/hero-martin-zak-800.jpg 800w, /images/hero-martin-zak.jpg 1300w"
+                sizes="(min-width: 1024px) 38vw, 92vw"
+                alt="Martin and his son Zak in front of the MK Electrical London van in Fulham"
+                width="1300"
+                height="1733"
+                class="w-full aspect-[3/4] object-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </picture>
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 60%, rgba(11,11,13,0.38) 100%);"></div>
+          </div>
+
+          <!-- Floating Trust-Card -->
+          <div class="card-glass absolute -left-3 md:-left-6 top-6 px-4 py-3 flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-ink text-white inline-flex items-center justify-center flex-shrink-0">
+              <Icon name="ShieldCheck" size={18} strokeWidth={2.2} />
+            </span>
+            <p class="text-[0.68rem] font-mono font-semibold uppercase tracking-[0.14em] leading-relaxed">
+              NICEIC Approved<br /><span class="text-muted">Part P Registered</span>
+            </p>
+          </div>
+
+          <!-- Floating Familien-Card -->
+          <div class="card-glass absolute -right-2 md:-right-5 bottom-8 px-5 py-4">
+            <p class="text-[0.65rem] font-mono font-semibold uppercase tracking-[0.16em] text-muted mb-1">Family-run since 1994</p>
+            <p class="signature !text-xl !rotate-0">Laura &amp; Martin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · FAMILIEN-STORY ════════ -->
+  <section class="bg-white py-24 md:py-32 relative overflow-hidden">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Drei-Generationen-Silhouette (Hero der alten Site) -->
+        <div class="relative fade-in">
+          <div class="photo-frame">
+            <img
+              src="/images/story-generations.jpg"
+              alt="Three generations of MK Electrical London — silhouette of grandfather, father and son"
+              width="1100"
+              height="1100"
+              class="w-full aspect-square object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-glass absolute -bottom-6 right-4 md:right-8 px-6 py-5">
+            <p class="big-number text-ink" style="font-size: clamp(2rem,5vw,2.75rem);">Est. 1994</p>
+            <p class="text-[0.68rem] font-mono uppercase tracking-[0.16em] text-muted mt-1.5">Mario → Martin &amp; Laura</p>
+          </div>
+        </div>
+
+        <div class="fade-in stagger-1">
+          <span class="eyebrow mb-5">Who are we?</span>
+          <h2 class="heading-lg text-balance mb-7">
+            From Mario to Martin. A <em class="accent-serif">family business</em> since 1994.
+          </h2>
+          <div class="space-y-4 text-muted leading-relaxed text-[1.02rem]">
+            <p>
+              MK Electrical London originally began in 1994 under the name <strong class="text-ink font-semibold">“1st Call MK of Fulham Electrical Services LTD”</strong>
+            </p>
+            <p class="accent-serif text-ink/80 text-lg">
+              (A bit of a mouthful — but we’ll blame the Yellow Pages algorithm back then!)
+            </p>
+            <p>
+              The company was founded by Mario, Martin’s father, with a simple goal: provide reliable, honest electrical services to the local community.
+            </p>
+            <p>
+              In 2010, the business was passed to Martin, who, alongside his wife Laura, has taken the company from strength to strength — proudly keeping it a family-run business at heart.
+            </p>
+            <p>
+              With over <strong class="text-ink font-semibold"><span data-count="5000" data-suffix="+">5,000+</span> happy customers</strong>, MK Electrical is now one of the most established electrical companies in South West London.
+            </p>
+          </div>
+          <div class="mt-8 flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <p class="text-muted text-[0.95rem]">{story.family.signoff}</p>
+              <p class="signature mt-1">{story.family.signature}</p>
+            </div>
+            <a href="/about" class="arrow-link">
+              Read our full story
+              <Icon name="ArrowRight" size={15} strokeWidth={2.4} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · SERVICES (Dark) ════════ -->
+  <section class="section-ink py-24 md:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 grid-overlay grid-overlay-fade" aria-hidden="true"></div>
+    <div class="container-mk relative">
+      <SectionHeading
+        light
+        eyebrow="What we do"
+        title="Everything electrical — <em>one trusted team.</em>"
+        intro="Covering most of London, we provide a wide range of electrical services for both homes and businesses. From small jobs to full installations, no job is too minor or too complex."
+        ctaHref="/services"
+        ctaLabel="All services"
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mt-12">
+        {services.map((s, i) => <ServiceCard service={s} index={i} />)}
+      </div>
+      <p class="text-white/45 text-[0.88rem] mt-8 fade-in">
+        Plus light fitting replacements, socket &amp; switch repairs, spotlight upgrades and electrical certification —
+        <a href="/services" class="text-white/80 underline underline-offset-2 hover:text-white transition">see the full list</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · VIER GRÜNDE ════════ -->
+  <section class="section-paper py-24 md:py-32">
+    <div class="container-mk">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <SectionHeading
+          align="center"
+          eyebrow="The MK difference"
+          title="Four reasons 5,000+ customers <em>come back.</em>"
+        />
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
+        {fourReasons.map((r, i) => (
+          <div class={`card-feature fade-in stagger-${(i % 2) + 1}`}>
+            <span class="inline-flex items-center justify-center w-[52px] h-[52px] rounded-2xl bg-ink text-white mb-5">
+              <Icon name={r.icon} size={24} strokeWidth={2} />
+            </span>
+            <h3 class="font-display font-bold text-lg text-ink mb-2 leading-snug">{r.title}</h3>
+            <p class="text-muted text-[0.95rem] leading-relaxed">{r.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 5 · TRUST & TRANSPARENCY ════════ -->
+  <section class="bg-white py-24 md:py-32 relative overflow-hidden">
+    <span class="ghost-mark -left-16 -bottom-24" data-text="EST.94" aria-hidden="true"></span>
+    <div class="container-mk relative">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Trust &amp; transparency</span>
+          <h2 class="heading-lg text-balance">
+            We know the trades industry has created mistrust. <em class="accent-serif">We’re here to change that.</em>
+          </h2>
+          <p class="text-lg text-muted leading-relaxed mt-6 text-pretty">{trust.intro}</p>
+          <ul class="mt-7 space-y-3">
+            {trust.priorities.map((p) => (
+              <li class="flex items-center gap-3 text-ink font-display font-semibold text-[1.02rem]">
+                <span class="w-6 h-6 rounded-full bg-ink text-white inline-flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={13} strokeWidth={3} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <p class="text-muted mt-7">{trust.goal}</p>
+        </div>
+
+        <div class="flex flex-col justify-center fade-in stagger-1">
+          <figure class="relative border border-line rounded-[var(--radius-xl)] bg-paper p-8 md:p-12">
+            <Icon name="Quote" size={36} strokeWidth={1.5} class="text-ink/15 mb-5" />
+            <blockquote class="accent-serif text-ink text-xl md:text-2xl leading-snug text-pretty">
+              “All we ask in return is that our staff are treated with the respect and kindness they deserve while working in your home or business.”
+            </blockquote>
+            <figcaption class="mt-7 flex items-center gap-3">
+              <img src="/images/team/martin.jpg" alt="Martin, Director of MK Electrical London" width="44" height="44" class="w-11 h-11 rounded-full object-cover object-top" loading="lazy" />
+              <div>
+                <p class="font-display font-bold text-ink text-[0.95rem]">Laura &amp; Martin</p>
+                <p class="text-[0.78rem] text-muted-light mono mt-0.5">Directors, MK Electrical London</p>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · REVIEWS ════════ -->
+  <section class="section-paper py-24 md:py-32">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="Reviews"
+        title="What South West London <em>says.</em>"
+        intro="Real customers, real postcodes — every word verbatim. From wireless lighting in Putney to emergency call-outs in Barnes."
+        ctaHref="/reviews"
+        ctaLabel="All 21 reviews"
+      />
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6 mt-12">
+        {featuredReviews.map((r, i) => <ReviewCard review={r} stagger={(i % 4) + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 7 · SERVICE-GEBIETE ════════ -->
+  <section class="bg-white py-24 md:py-32">
+    <div class="container-mk">
+      <div class="text-center max-w-2xl mx-auto">
+        <SectionHeading
+          align="center"
+          eyebrow="Where we work"
+          title="Covering <em>most of London.</em>"
+          intro="Most London postcodes (excluding East London) — with South West London as our home turf since 1994."
+        />
+      </div>
+      <div class="flex flex-wrap justify-center gap-2.5 md:gap-3 max-w-3xl mx-auto mt-10 fade-in stagger-1">
+        {areas.map((a) =>
+          a.linked ? (
+            <a href={`/areas/${a.slug}`} class="tag !px-5 !py-2.5 !text-[0.95rem]">
+              <Icon name="MapPin" size={15} strokeWidth={2} class="text-muted" />
+              {a.name}
+            </a>
+          ) : (
+            <span class="tag !px-5 !py-2.5 !text-[0.95rem] !bg-paper text-muted">
+              <Icon name="MapPin" size={15} strokeWidth={2} class="text-muted-light" />
+              {a.name}
+            </span>
+          )
+        )}
+      </div>
+      <p class="text-center text-muted-light text-[0.88rem] mt-7 fade-in stagger-2">
+        Not on the list? If you’re anywhere outside East London, we most likely cover you —
+        <a href="/contact" class="underline underline-offset-2 hover:text-ink transition">just ask</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · MEET THE TEAM / INSTAGRAM ════════ -->
+  <section class="section-stone py-24 md:py-32 relative overflow-hidden">
+    <div class="container-mk">
+      <SectionHeading
+        eyebrow="The family behind the fuse boards"
+        title="Meet the team — <em>all of them.</em>"
+        intro="We’re proud to run MK Electrical as a family business. We even have two small boys who are already very interested in helping out — you may spot them occasionally on our Instagram!"
+      />
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mt-12">
+        {team.map((m, i) => (
+          <div class={`card !p-0 overflow-hidden fade-in stagger-${(i % 4) + 1}`}>
+            <div class="relative overflow-hidden bg-stone">
+              <img
+                src={m.image}
+                alt={`${m.name} — ${m.role} at MK Electrical London`}
+                width="900"
+                height="1100"
+                class="w-full aspect-[4/5] object-cover object-top grayscale transition-transform duration-700 hover:scale-[1.04]"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-5">
+              <p class="font-display font-bold text-ink text-lg leading-tight">{m.name}</p>
+              <p class="text-[0.7rem] font-mono font-semibold uppercase tracking-[0.14em] text-muted mt-1.5">{m.role}</p>
+              <p class="text-[0.85rem] text-muted-light mt-2 leading-snug">{m.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="flex justify-center mt-12 fade-in">
+        <a href={site.instagramUrl} target="_blank" rel="noopener" class="btn btn-ink btn-lg">
+          <InstagramIcon size={17} strokeWidth={2} />
+          Follow us on Instagram — @{site.instagram}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 9 · STANDORT + KONTAKT ════════ -->
+  <section class="bg-white py-24 md:py-32">
+    <div class="container-mk">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Find us</span>
+          <h2 class="heading-lg text-balance mb-6">
+            Townmead Business Centre, <em class="accent-serif">Fulham SW6.</em>
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-8 text-pretty">
+            Whether your query is big or small, we’re here to help. We’ll get back to you promptly to discuss your needs and next steps.
+          </p>
+          <ul class="space-y-4">
+            <li>
+              <a href={telLink} class="group flex items-center gap-4">
+                <span class="tile-icon !w-11 !h-11"><Icon name="Phone" size={18} strokeWidth={2} /></span>
+                <div>
+                  <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light">Call us</p>
+                  <p class="font-display font-bold text-ink group-hover:underline underline-offset-4">{site.phone}</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href={whatsappLink} target="_blank" rel="noopener" class="group flex items-center gap-4">
+                <span class="tile-icon !w-11 !h-11 !bg-green"><Icon name="MessageCircle" size={18} strokeWidth={2} /></span>
+                <div>
+                  <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light">WhatsApp us directly</p>
+                  <p class="font-display font-bold text-ink group-hover:underline underline-offset-4">wa.me/mkelectricallondon</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href={mailLink} class="group flex items-center gap-4">
+                <span class="tile-icon !w-11 !h-11"><Icon name="Mail" size={18} strokeWidth={2} /></span>
+                <div>
+                  <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light">Email</p>
+                  <p class="font-display font-bold text-ink group-hover:underline underline-offset-4 break-all">{site.email}</p>
+                </div>
+              </a>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="tile-icon tile-icon-outline !w-11 !h-11"><Icon name="MapPin" size={18} strokeWidth={2} /></span>
+              <div>
+                <p class="text-[0.7rem] font-mono uppercase tracking-[0.16em] text-muted-light">Visit</p>
+                <p class="font-display font-bold text-ink">{site.address.unit}, {site.address.estate}, {site.address.street}, {site.address.postcode}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-in stagger-1">
+          <MapBlock class="h-full min-h-[380px]" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 10 · FINAL CTA ════════ -->
+  <CtaBand />
+</Layout>

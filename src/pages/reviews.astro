@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { reviews } from '../data/reviews';
+import { site } from '../data/site';
+
+const platforms = [
+  {
+    name: 'Google',
+    href: site.reviewLinks.google,
+    note: 'Leave us a Google review',
+  },
+  {
+    name: 'Checkatrade',
+    href: site.reviewLinks.checkatrade,
+    note: 'Leave us a Checkatrade review',
+  },
+  {
+    name: 'TrustATrader',
+    href: site.reviewLinks.trustatrader,
+    note: 'Leave us a TrustATrader review',
+  },
+];
+---
+
+<Layout
+  current="/reviews"
+  title="Reviews | MK Electrical London — 21 Verbatim Customer Reviews"
+  description="What South West London says about MK Electrical London — 21 verbatim reviews with real names and postcodes, from Fulham SW6 to Knightsbridge SW1W."
+>
+  <PageHero
+    crumb="Reviews"
+    eyebrow="Reviews"
+    title="Real names. Real postcodes. <em>Real reviews.</em>"
+    subtitle="Your feedback is so important in helping our family business grow! Every review below is reproduced word for word from our customers."
+    ghost="5,000+"
+  />
+
+  <!-- Alle 21 Reviews -->
+  <section class="bg-white py-20 md:py-24">
+    <div class="container-mk">
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-12 fade-in">
+        <p class="trust-strip text-ink/60">
+          <span>{reviews.length} reviews</span>
+          <span>All verbatim</span>
+          <span>SW6 · SW15 · SW13 · SW4 · SW1X · W6 · TW3</span>
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {reviews.map((r, i) => <ReviewCard review={r} stagger={(i % 3) + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Review hinterlassen (verbatim Links der alten Site) -->
+  <section class="section-paper py-24 md:py-28">
+    <div class="container-mk">
+      <SectionHeading
+        align="center"
+        eyebrow="Had us round recently?"
+        title="Help our family business <em>grow.</em>"
+        intro="Your feedback is so important in helping our family business grow! Pick whichever platform you prefer."
+      />
+      <div class="grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto mt-12">
+        {platforms.map((p, i) => (
+          <a href={p.href} target="_blank" rel="noopener" class={`tile items-center text-center group fade-in stagger-${i + 1}`}>
+            <span class="tile-icon">
+              <Icon name="Star" size={20} strokeWidth={2} />
+            </span>
+            <p class="font-display font-bold text-ink">{p.name}</p>
+            <p class="text-[0.85rem] text-muted-light leading-snug">{p.note}</p>
+            <span class="inline-flex items-center gap-1.5 text-[0.82rem] font-display font-semibold text-ink mt-1">
+              Open
+              <Icon name="ExternalLink" size={13} strokeWidth={2.2} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
