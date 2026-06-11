@@ -118,52 +118,58 @@ const isActive = (item: (typeof nav)[number]) =>
   .nav-dd-chev { transition: transform 0.3s ease; }
 </style>
 
-<!-- is:inline: Menü-Toggle hängt ab Parse-Zeit (erster Tap funktioniert immer) -->
-<script is:inline>
-  (function () {
-    var toggle = document.getElementById('menu-toggle');
-    var menu = document.getElementById('mobile-menu');
-    var shell = document.getElementById('nav-shell');
-    var header = document.getElementById('site-header');
-    var burger = toggle ? toggle.querySelector('.hamburger') : null;
-
-    function isOpen() { return menu && !menu.classList.contains('hidden'); }
-    function setOpen(open) {
-      if (!menu) return;
-      menu.classList.toggle('hidden', !open);
-      if (burger) burger.classList.toggle('open', open);
-      if (toggle) {
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      }
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-
+<script>
+  // View-Transition-sicher: Element-Listener werden pro Seite neu gesetzt
+  // (astro:page-load), window/document-Listener nur einmal (Flag-Guard).
+  function isOpen() {
+    const menu = document.getElementById('mobile-menu');
+    return !!menu && !menu.classList.contains('hidden');
+  }
+  function setOpen(open: boolean) {
+    const menu = document.getElementById('mobile-menu');
+    const toggle = document.getElementById('menu-toggle');
+    const burger = toggle?.querySelector('.hamburger');
+    if (!menu) return;
+    menu.classList.toggle('hidden', !open);
+    burger?.classList.toggle('open', open);
     if (toggle) {
-      toggle.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!isOpen()); });
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     }
-    if (menu) {
-      menu.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () { setOpen(false); });
-      });
-    }
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen()) setOpen(false); });
-    document.addEventListener('click', function (e) { if (isOpen() && header && !header.contains(e.target)) setOpen(false); });
-    window.addEventListener('resize', function () { if (window.innerWidth >= 1024 && isOpen()) setOpen(false); });
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
 
-    // Nav verstärken beim Scrollen
-    var ticking = false;
-    window.addEventListener('scroll', function () {
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle?.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!isOpen()); });
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.body.style.overflow = '';
+  });
+
+  const w = window as any;
+  if (!w.__mkHeader) {
+    w.__mkHeader = true;
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) setOpen(false); });
+    document.addEventListener('click', (e) => {
+      const header = document.getElementById('site-header');
+      if (isOpen() && header && !header.contains(e.target as Node)) setOpen(false);
+    });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1024 && isOpen()) setOpen(false); });
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(function () {
-        var y = window.scrollY;
+      requestAnimationFrame(() => {
+        const shell = document.getElementById('nav-shell');
+        const y = window.scrollY;
         if (shell) {
           if (y > 30) { shell.style.background = 'rgba(255,255,255,0.94)'; shell.style.transform = 'scale(0.985)'; }
           else { shell.style.background = 'rgba(255,255,255,0.85)'; shell.style.transform = 'scale(1)'; }
         }
         ticking = false;
       });
-    });
-  })();
+    }, { passive: true });
+  }
 </script>

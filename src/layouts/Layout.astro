@@ -16,6 +16,7 @@ import '../styles/global.css';
 import manrope800 from '@fontsource/manrope/files/manrope-latin-800-normal.woff2?url';
 import fraunces500i from '@fontsource/fraunces/files/fraunces-latin-500-italic.woff2?url';
 import nunito400 from '@fontsource/nunito-sans/files/nunito-sans-latin-400-normal.woff2?url';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingCTA from '../components/FloatingCTA.astro';
@@ -65,7 +66,7 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
     {noindex
       ? <meta name="robots" content="noindex, follow" />
       : <meta name="robots" content="index, follow" />}
-    <meta name="theme-color" content="#111113" />
+    <meta name="theme-color" content="#0A0A0C" />
     <meta name="author" content={site.name} />
 
     <meta property="og:type" content="website" />
@@ -84,6 +85,7 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
     <meta name="twitter:image" content={ogImageUrl} />
 
     <SchemaOrg schema={schema} />
+    <ClientRouter />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -96,50 +98,107 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
     <CookieBanner />
 
     <script>
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Globale Interaktions-Engine — läuft initial UND nach jeder
+      // View Transition (astro:page-load). Element-Listener hängen an
+      // frischen Nodes, window-Listener sind einmalig (Flag-Guard).
+      const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Scroll-Reveal
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('is-visible');
-              io.unobserve(e.target);
-            }
-          });
-        },
-        { rootMargin: '0px 0px -50px 0px', threshold: 0.05 }
-      );
-      document.querySelectorAll('.fade-in').forEach((el) => io.observe(el));
+      function initPage() {
+        // ── Scroll-Reveal ──
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -50px 0px', threshold: 0.05 }
+        );
+        document.querySelectorAll('.fade-in, .timeline').forEach((el) => io.observe(el));
 
-      // Zähler-Animation (respektiert reduced-motion)
-      const fmt = (n: number) => n.toLocaleString('en-GB');
-      const animateCount = (el: HTMLElement) => {
-        const target = parseInt(el.dataset.count || '0', 10);
-        if (reduce || !target) { el.textContent = fmt(target) + (el.dataset.suffix || ''); return; }
-        const dur = 1800;
-        const startTime = performance.now();
-        const tick = (now: number) => {
-          const p = Math.min((now - startTime) / dur, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = fmt(Math.round(eased * target)) + (el.dataset.suffix || '');
-          if (p < 1) requestAnimationFrame(tick);
-          else el.textContent = fmt(target) + (el.dataset.suffix || '');
+        // ── Zähler ──
+        const fmt = (n: number) => n.toLocaleString('en-GB');
+        const animateCount = (el: HTMLElement) => {
+          const target = parseInt(el.dataset.count || '0', 10);
+          if (reduce() || !target) { el.textContent = fmt(target) + (el.dataset.suffix || ''); return; }
+          const dur = 1800;
+          const startTime = performance.now();
+          const tick = (now: number) => {
+            const p = Math.min((now - startTime) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(Math.round(eased * target)) + (el.dataset.suffix || '');
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = fmt(target) + (el.dataset.suffix || '');
+          };
+          requestAnimationFrame(tick);
         };
-        requestAnimationFrame(tick);
-      };
-      const countIO = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              animateCount(e.target as HTMLElement);
-              countIO.unobserve(e.target);
-            }
+        const countIO = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                animateCount(e.target as HTMLElement);
+                countIO.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => countIO.observe(el));
+
+        // ── Maus-Glow auf Cards/Tiles (setzt --mx/--my) ──
+        if (!reduce()) {
+          document.querySelectorAll<HTMLElement>('.card-dark, .card-feature, .tile').forEach((card) => {
+            card.addEventListener('pointermove', (ev) => {
+              const r = card.getBoundingClientRect();
+              card.style.setProperty('--mx', ((ev.clientX - r.left) / r.width) * 100 + '%');
+              card.style.setProperty('--my', ((ev.clientY - r.top) / r.height) * 100 + '%');
+            });
           });
-        },
-        { threshold: 0.4 }
-      );
-      document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => countIO.observe(el));
+
+          // ── 3D-Tilt ──
+          document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((el) => {
+            const max = parseFloat(el.dataset.tilt || '5');
+            el.addEventListener('pointermove', (ev) => {
+              const r = el.getBoundingClientRect();
+              const px = (ev.clientX - r.left) / r.width - 0.5;
+              const py = (ev.clientY - r.top) / r.height - 0.5;
+              el.style.setProperty('--ry', (px * max).toFixed(2) + 'deg');
+              el.style.setProperty('--rx', (-py * max).toFixed(2) + 'deg');
+            });
+            el.addEventListener('pointerleave', () => {
+              el.style.setProperty('--rx', '0deg');
+              el.style.setProperty('--ry', '0deg');
+            });
+          });
+        }
+      }
+
+      // ── Parallax (window-Listener, einmalig) ──
+      function parallaxFrame() {
+        document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
+          const f = parseFloat(el.dataset.parallax || '0.12');
+          const r = el.getBoundingClientRect();
+          const mid = r.top + r.height / 2 - window.innerHeight / 2;
+          el.style.transform = `translateY(${(-mid * f).toFixed(1)}px)`;
+        });
+      }
+      const w = window as any;
+      if (!w.__mkGlobal) {
+        w.__mkGlobal = true;
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking || reduce()) return;
+          ticking = true;
+          requestAnimationFrame(() => { parallaxFrame(); ticking = false; });
+        }, { passive: true });
+      }
+
+      document.addEventListener('astro:page-load', () => {
+        initPage();
+        if (!reduce()) parallaxFrame();
+      });
     </script>
 
     <style is:global>
@@ -149,8 +208,8 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
       }
       .skip-link:focus {
         position: fixed; top: 1rem; left: 1rem; width: auto; height: auto; clip: auto;
-        padding: 0.75rem 1.25rem; background: #111113; color: #fff; border-radius: 999px; z-index: 100;
-        font-weight: 600;
+        padding: 0.75rem 1.25rem; background: #FFB81C; color: #111113; border-radius: 999px; z-index: 100;
+        font-weight: 700;
       }
     </style>
   </body>

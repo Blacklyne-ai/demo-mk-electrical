@@ -36,20 +36,17 @@ for (const [vp, label] of [[{ width: 1440, height: 900 }, 'desktop'], [{ width: 
         document.querySelectorAll('.fade-in').forEach((el) => el.classList.add('is-visible'));
         document.querySelector('astro-dev-toolbar')?.remove();
       });
-      // Scroll-Pass, damit lazy Images vor dem Full-Page-Shot laden
+      // Scroll-Pass, damit lazy Images vor dem Full-Page-Shot laden.
+      // WICHTIG: behavior 'instant' — html hat scroll-behavior:smooth,
+      // plain scrollTo/scrollBy animiert sonst und erreicht die Tiefe nie.
       await page.evaluate(async () => {
-        await new Promise((resolve) => {
-          let y = 0;
-          const step = () => {
-            window.scrollBy(0, 900);
-            y += 900;
-            if (y >= document.body.scrollHeight + 1800) { window.scrollTo(0, 0); resolve(); }
-            else setTimeout(step, 60);
-          };
-          step();
-        });
+        for (let y = 0; y < document.body.scrollHeight; y += 700) {
+          window.scrollTo({ top: y, behavior: 'instant' });
+          await new Promise((r) => setTimeout(r, 120));
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
       });
-      await page.waitForTimeout(700);
+      await page.waitForTimeout(900);
       await page.screenshot({ path: `${OUT}/${label}-${name}.png`, fullPage: true });
       console.log('OK', label, name);
     } catch (e) {

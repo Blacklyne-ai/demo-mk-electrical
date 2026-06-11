@@ -93,8 +93,18 @@ Stand: 2026-06-10. Alle Punkte vor Live-Gang mit dem Kunden klären.
 
 9. **Lighthouse-Messung** (lokal, gzip-Server, simuliertes Slow-4G):
    Mobile 92 / LCP 3.2s / CLS 0 / TBT 0ms · A11y 100 · Best Practices 100 ·
-   SEO 100. Desktop 100 / LCP 0.6s. Optimiert: Latin-only-Font-Subsets,
-   Hero in AVIF+srcset, Font-Preloads, 2.5KB-Favicon. Auf Cloudflare
-   Pages (Brotli + Edge-RTT statt simulierter 150ms) liegt der
-   Mobile-Feldwert erfahrungsgemäß über 95 - nach Deploy via
-   PageSpeed Insights verifizieren.
+   SEO 100 - identisch vor und nach dem v2-Interaktiv-Ausbau. Desktop 100 /
+   LCP 0.6s. Optimiert: Latin-only-Font-Subsets, Hero in AVIF+srcset,
+   Font-Preloads, 2.5KB-Favicon, CSS inline. Auf Cloudflare Pages
+   (Brotli + Edge-RTT statt simulierter 150ms) liegt der Mobile-Feldwert
+   erfahrungsgemäß über 95 - nach Deploy via PageSpeed Insights verifizieren.
+
+10. **v2 "Ink + Voltage"** (Operator-Direktive: mehr Layer, Interaktivität,
+    Branchen-Feeling, größer wirken): Volt-Amber #FFB81C als Stromfarbe
+    ergänzt - bewusst aus den echten Assets abgeleitet (gelbe Leiter auf
+    dem Van, Zaks Helm), nicht erfunden. Alle Interaktiv-Module arbeiten
+    ausschließlich mit echten Inhalten (Fuse-Board = echte Services,
+    Dimmer = echtes Arbeitsfoto, Marquee = echte Siegel/Reviews,
+    Postcode-Chips = echte Review-Postcodes). Alle Animationen respektieren
+    prefers-reduced-motion; Fuse-Board ist voll tastaturbedienbar
+    (Tab-Semantik + Pfeiltasten).

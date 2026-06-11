@@ -1,6 +1,6 @@
 ---
-// Subpage-Hero — Light/Editorial (Paper), items-center, Ghost-Watermark,
-// optionales Bild rechts im Photo-Frame. Akzentwort via <em> im Titel.
+// Subpage-Hero — Light/Editorial (Paper), items-center, Ghost-Watermark
+// mit Parallax, Volt-Mikroakzente, optionales Bild im Tilt-Frame.
 import Icon from './Icon.astro';
 interface Props {
   eyebrow?: string;
@@ -16,7 +16,7 @@ interface Props {
 const { eyebrow, title, subtitle, crumb, image, imageAlt = '', ghost = 'MK', primary, secondary } = Astro.props;
 ---
 <section class="section-paper relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-20">
-  <span class="ghost-mark -right-12 -top-16" data-text={ghost} aria-hidden="true"></span>
+  <span class="ghost-mark -right-12 -top-16" data-text={ghost} data-parallax="0.08" aria-hidden="true"></span>
 
   <div class="container-mk relative z-10">
     <nav class="flex items-center gap-2 text-[0.78rem] text-muted-light mb-7 fade-in" aria-label="Breadcrumb">
@@ -27,7 +27,12 @@ const { eyebrow, title, subtitle, crumb, image, imageAlt = '', ghost = 'MK', pri
 
     <div class={`grid ${image ? 'lg:grid-cols-12 gap-10 lg:gap-14 items-center' : ''}`}>
       <div class={image ? 'lg:col-span-7' : 'max-w-3xl'}>
-        {eyebrow && <span class="eyebrow mb-5 fade-in">{eyebrow}</span>}
+        {eyebrow && (
+          <span class="eyebrow mb-5 fade-in inline-flex items-center gap-3">
+            <span class="led !w-1.5 !h-1.5" aria-hidden="true"></span>
+            {eyebrow}
+          </span>
+        )}
         <h1 class="heading-xl text-balance section-title fade-in stagger-1" set:html={title} />
         {subtitle && <p class="text-lg md:text-xl text-muted leading-relaxed max-w-2xl mt-6 text-pretty fade-in stagger-2">{subtitle}</p>}
         {(primary || secondary) && (
@@ -44,7 +49,7 @@ const { eyebrow, title, subtitle, crumb, image, imageAlt = '', ghost = 'MK', pri
       </div>
       {image && (
         <div class="lg:col-span-5 fade-in stagger-2">
-          <div class="photo-frame">
+          <div class="photo-frame" data-tilt="3">
             <img
               src={image}
               srcset={image.endsWith('.jpg') ? `${image.replace(/\.jpg$/, '-480.jpg')} 480w, ${image.replace(/\.jpg$/, '-800.jpg')} 800w, ${image} 1100w` : undefined}

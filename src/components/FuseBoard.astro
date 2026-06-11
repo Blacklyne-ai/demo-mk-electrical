@@ -1,0 +1,130 @@
+---
+// DER SICHERUNGSKASTEN — interaktiver Service-Explorer.
+// Jeder Service ist eine Sicherung: Breaker umlegen → LED an →
+// Service-Panel schaltet um. Tastatur: Pfeiltasten (Tab-Semantik).
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { site, telLink } from '../data/site';
+---
+<div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+  <!-- Das Board -->
+  <div class="lg:col-span-5">
+    <div class="board p-6 md:p-8 fade-in" data-tilt="3">
+      <!-- Kopfzeile wie auf einer echten Verteilung -->
+      <div class="relative flex items-center justify-between mb-6 pb-5 border-b border-white/10">
+        <div>
+          <p class="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/45">Distribution board</p>
+          <p class="font-display font-bold text-white mt-1">MK Electrical · Unit 3, SW6</p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="led" aria-hidden="true"></span>
+          <span class="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-volt">Live</span>
+        </div>
+      </div>
+
+      <!-- Breaker-Reihe -->
+      <div class="relative grid grid-cols-3 gap-3" role="tablist" aria-label="Our services" id="fuse-tablist">
+        {services.map((s, i) => (
+          <button
+            class="breaker"
+            role="tab"
+            id={`breaker-${s.slug}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`panel-${s.slug}`}
+            tabindex={i === 0 ? 0 : -1}
+            data-board-slug={s.slug}
+          >
+            <span class="breaker-led" aria-hidden="true"></span>
+            <span class="breaker-toggle" aria-hidden="true"></span>
+            <span class="breaker-label">{s.navName}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Fußzeile -->
+      <div class="relative flex items-center justify-between mt-6 pt-5 border-t border-white/10">
+        <p class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/35">Flip a breaker to explore</p>
+        <p class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/35">EST: 1994</p>
+      </div>
+    </div>
+
+    <p class="text-white/40 text-[0.82rem] mt-5 flex items-center gap-2 fade-in stagger-1">
+      <Icon name="Info" size={14} strokeWidth={2} />
+      Every switch is a real service — wired by the family since 1994.
+    </p>
+  </div>
+
+  <!-- Service-Panels -->
+  <div class="lg:col-span-7">
+    {services.map((s, i) => (
+      <div
+        class={`board-panel ${i === 0 ? 'active' : ''}`}
+        role="tabpanel"
+        id={`panel-${s.slug}`}
+        aria-labelledby={`breaker-${s.slug}`}
+      >
+        <div class="flex items-start justify-between gap-4 mb-5">
+          <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-volt text-ink flex-shrink-0" style="box-shadow: var(--shadow-volt);">
+            <Icon name={s.icon} size={26} strokeWidth={2} />
+          </span>
+          {s.emergency && (
+            <span class="inline-flex items-center gap-2 text-[0.65rem] font-mono font-semibold uppercase tracking-[0.16em] text-white/70">
+              <span class="led led-signal"></span>
+              24hrs on the van
+            </span>
+          )}
+        </div>
+        <h3 class="font-display font-extrabold text-white text-2xl md:text-3xl tracking-tight mb-3">
+          {s.name} — <em class="accent-serif text-volt">{s.heroLine}</em>
+        </h3>
+        <p class="text-white/65 leading-relaxed mb-6 max-w-xl">{s.short}</p>
+        <ul class="grid sm:grid-cols-2 gap-2.5 mb-8">
+          {s.includes.map((inc) => (
+            <li class="flex items-start gap-2.5 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3">
+              <Icon name="Check" size={15} strokeWidth={2.8} class="text-volt mt-0.5 flex-shrink-0" />
+              <span class="text-[0.88rem] text-white/75 leading-snug">{inc.label}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap gap-3">
+          <a href={`/services/${s.slug}`} class="btn btn-volt">
+            Everything about {s.navName}
+            <Icon name="ArrowRight" size={15} strokeWidth={2.5} />
+          </a>
+          <a href={telLink} class="btn btn-ghost">
+            <Icon name="Phone" size={15} strokeWidth={2.2} />
+            {site.phone}
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const list = document.getElementById('fuse-tablist');
+    if (!list) return;
+    const breakers = [...list.querySelectorAll<HTMLButtonElement>('.breaker')];
+
+    function activate(b: HTMLButtonElement) {
+      breakers.forEach((x) => {
+        const on = x === b;
+        x.setAttribute('aria-selected', on ? 'true' : 'false');
+        x.tabIndex = on ? 0 : -1;
+      });
+      document.querySelectorAll('.board-panel').forEach((p) => p.classList.remove('active'));
+      document.getElementById('panel-' + b.dataset.boardSlug)?.classList.add('active');
+    }
+
+    breakers.forEach((b, i) => {
+      b.addEventListener('click', () => activate(b));
+      b.addEventListener('keydown', (e) => {
+        let next = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % breakers.length;
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + breakers.length) % breakers.length;
+        if (next >= 0) { e.preventDefault(); breakers[next].focus(); activate(breakers[next]); }
+      });
+    });
+  });
+</script>

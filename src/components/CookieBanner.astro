@@ -16,11 +16,13 @@
 
 <script>
   const KEY = 'mk-cookie-notice';
-  const banner = document.getElementById('cookie-banner');
-  const stored = (() => { try { return localStorage.getItem(KEY); } catch { return 'dismissed'; } })();
-  if (!stored && banner) setTimeout(() => (banner.style.transform = 'translateY(0)'), 1400);
-  document.getElementById('cookie-ok')?.addEventListener('click', () => {
-    try { localStorage.setItem(KEY, 'ok'); } catch {}
-    if (banner) banner.style.transform = 'translateY(150%)';
+  document.addEventListener('astro:page-load', () => {
+    const banner = document.getElementById('cookie-banner');
+    const stored = (() => { try { return localStorage.getItem(KEY); } catch { return 'dismissed'; } })();
+    if (!stored && banner) setTimeout(() => (banner.style.transform = 'translateY(0)'), 1400);
+    document.getElementById('cookie-ok')?.addEventListener('click', () => {
+      try { localStorage.setItem(KEY, 'ok'); } catch {}
+      if (banner) banner.style.transform = 'translateY(150%)';
+    });
   });
 </script>

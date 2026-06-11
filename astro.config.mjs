@@ -16,4 +16,9 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     sitemap(),
   ],
+  build: {
+    // CSS inline (Memory feedback_corporate_scale): kein render-blockierender
+    // Stylesheet-Roundtrip; Cloudflare-Brotli macht die HTML-Größe wett
+    inlineStylesheets: 'always',
+  },
 });

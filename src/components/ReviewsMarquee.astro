@@ -1,0 +1,44 @@
+---
+// Review-Marquee — zwei gegenläufige Reihen, Hover pausiert.
+// Alle Zitate verbatim; kompakte Karten eigens fürs Laufband.
+import Icon from './Icon.astro';
+import { reviews } from '../data/reviews';
+
+const rowA = reviews.filter((_, i) => i % 2 === 0);
+const rowB = reviews.filter((_, i) => i % 2 === 1);
+
+const clip = (t: string, n = 200) => (t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + ' …' : t);
+---
+<div class="space-y-5">
+  {[
+    { rows: rowA, reverse: false, dur: '95s' },
+    { rows: rowB, reverse: true, dur: '110s' },
+  ].map(({ rows, reverse, dur }) => (
+    <div class={`marquee ${reverse ? 'marquee-reverse' : ''}`} style={`--marquee-dur: ${dur};`}>
+      {[false, true].map((copy) => (
+        <div class="marquee-track" aria-hidden={copy ? 'true' : undefined}>
+          {rows.map((r) => (
+            <figure class="w-[330px] md:w-[380px] flex-shrink-0 bg-white border border-line rounded-3xl p-6 flex flex-col" style="white-space: normal;">
+              <div class="flex items-center justify-between mb-3.5">
+                <span class="stars" role={copy ? undefined : 'img'} aria-label={copy ? undefined : '5 star review'}>
+                  {Array.from({ length: 5 }).map(() => <Icon name="Star" size={13} strokeWidth={1.5} />)}
+                </span>
+                {r.source === 'google' && (
+                  <span class="text-[0.62rem] font-mono uppercase tracking-[0.14em] text-muted-light">via Google</span>
+                )}
+              </div>
+              <blockquote class="text-[0.9rem] leading-relaxed text-muted flex-1">“{clip(r.text)}”</blockquote>
+              <figcaption class="mt-4 pt-3.5 border-t border-line flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-ink text-volt inline-flex items-center justify-center font-display font-bold text-[0.8rem] flex-shrink-0" aria-hidden="true">{r.name.charAt(0)}</span>
+                <div>
+                  <p class="font-display font-bold text-ink text-[0.85rem] leading-tight">{r.name}</p>
+                  <p class="text-[0.72rem] text-muted-light mono mt-0.5">{r.location}{r.postcode ? `, ${r.postcode}` : ''}</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+  ))}
+</div>

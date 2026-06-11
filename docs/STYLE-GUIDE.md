@@ -1,7 +1,32 @@
-# Style Guide: MK Electrical London
+# Style Guide: MK Electrical London — "Ink + Voltage" (v2)
 
-Stand: 2026-06-10 · Quelle: Pixel-Analyse beider Original-Logos (sharp) +
+Stand: 2026-06-11 · Quelle: Pixel-Analyse beider Original-Logos (sharp) +
 Playwright-Scrape der kompletten Squarespace-Site (www.mkelectricallondon.co.uk).
+
+## v2: Ink + Voltage
+
+Auf Operator-Wunsch (mehr Layer, Interaktivität, Branchen-Feeling,
+"größer wirken") wurde das monochrome Fundament um **Volt** erweitert -
+die Stromfarbe `#FFB81C` (aus ihrer Welt: gelbe Leiter auf dem Van,
+Zaks gelber Helm). Volt fließt sichtbar als Strom durch die Site:
+
+- **Power-Switch-Hero** (dark): Wandschalter kippen → Foto leuchtet auf,
+  Stromtrassen (animierte SVG-Traces) pulsieren, Motto glüht volt
+- **Fuse-Board**: Sicherungskasten als interaktiver Service-Explorer
+  (6 Breaker = 6 Services, Tab-Semantik, Pfeiltasten)
+- **Dimmer-Modul**: Drag-Regler steuert Helligkeit eines echten
+  Arbeitsfotos (Kirchen-Lichtinstallation)
+- **Marquees**: Credentials-Band (echte Siegel) + 2 gegenläufige
+  Review-Reihen, Hover pausiert
+- **Area-Carousel** (Scroll-Snap) + echte Job-Postcodes als Chips
+- **Scroll-Timeline** 1994 → 2010 → Today mit Volt-LEDs
+- 3D-Tilt (data-tilt) + Maus-Glow-Tracking auf Cards, Parallax-Layer
+  (data-parallax), Shimmer-Sweep auf Primary-Buttons, View Transitions
+  zwischen allen Seiten
+
+Dark-Anteil v2: Hero + Fuse-Board + CTA-Band + Footer (~35%), Rest hell.
+Volt auf Hell nur als Mikroakzent (LEDs, Icons, Sterne, `volt-deep`
+#825600 für AA-Text). Signal-Rot weiterhin NUR 24hrs, Grün NUR WhatsApp.
 
 ## Logo-Analyse (pixel-extrahiert)
 

@@ -19,6 +19,11 @@ export default {
         muted: 'rgb(var(--rgb-muted) / <alpha-value>)',
         'muted-light': 'rgb(var(--rgb-muted-light) / <alpha-value>)',
         line: 'rgb(var(--rgb-border) / <alpha-value>)',
+        volt: {
+          DEFAULT: 'rgb(var(--rgb-volt) / <alpha-value>)',
+          bright: 'rgb(var(--rgb-volt-bright) / <alpha-value>)',
+          deep: 'rgb(var(--rgb-volt-deep) / <alpha-value>)',
+        },
         signal: 'rgb(var(--rgb-signal) / <alpha-value>)',
         green: 'rgb(var(--rgb-green) / <alpha-value>)',
       },

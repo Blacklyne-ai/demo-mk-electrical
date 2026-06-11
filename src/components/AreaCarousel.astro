@@ -1,0 +1,83 @@
+---
+// Area-Carousel — die 5 Original-Area-Bilder als Scroll-Snap-Karten
+// mit Pfeil-Navigation, darunter echte Job-Postcodes aus den Reviews.
+import Icon from './Icon.astro';
+import { areaPages } from '../data/areas';
+import { site } from '../data/site';
+
+// Echte Postcodes von den 21 Verbatim-Reviews (Job-Sheet-Beweis)
+const jobPostcodes = ['SW6', 'SW15', 'SW13', 'SW4', 'SW1X', 'SW1W', 'W6', 'TW3'];
+---
+<div>
+  <div class="flex items-end justify-between gap-6 mb-8">
+    <div class="fade-in">
+      <span class="eyebrow mb-5">Where we work</span>
+      <h2 class="heading-lg text-balance section-title">
+        Covering <em>most of London.</em>
+      </h2>
+      <p class="text-muted text-lg mt-4 max-w-xl text-pretty">{site.serviceAreaNote} — with South West London as home turf since 1994.</p>
+    </div>
+    <div class="hidden md:flex items-center gap-2.5 fade-in stagger-1">
+      <button id="area-prev" class="w-11 h-11 rounded-full border border-line bg-white inline-flex items-center justify-center text-ink transition hover:border-volt hover:shadow-lg" aria-label="Scroll areas back">
+        <Icon name="ChevronRight" size={18} strokeWidth={2.4} class="rotate-180" />
+      </button>
+      <button id="area-next" class="w-11 h-11 rounded-full border border-line bg-white inline-flex items-center justify-center text-ink transition hover:border-volt hover:shadow-lg" aria-label="Scroll areas forward">
+        <Icon name="ChevronRight" size={18} strokeWidth={2.4} />
+      </button>
+    </div>
+  </div>
+
+  <div id="area-row" class="snap-row fade-in stagger-1" tabindex="0" aria-label="Areas we cover — scroll for more">
+    {areaPages.map((a) => (
+      <a href={`/areas/${a.slug}`} class="snap-card area-card group">
+        <img
+          src={a.image}
+          srcset={`${a.image.replace(/\.jpg$/, '-480.jpg')} 480w, ${a.image.replace(/\.jpg$/, '-800.jpg')} 800w`}
+          sizes="(min-width: 768px) 330px, 78vw"
+          alt={`${a.name}, London`}
+          width="800"
+          height="1000"
+          loading="lazy"
+        />
+        <div class="p-6 w-full">
+          <p class="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-volt mb-1.5">Electrician in</p>
+          <p class="font-display font-extrabold text-white text-2xl tracking-tight">{a.name}</p>
+          <p class="inline-flex items-center gap-2 text-white/80 text-[0.85rem] font-display font-semibold mt-3 transition-all duration-300 group-hover:gap-3.5">
+            Your {a.name} doorstep
+            <Icon name="ArrowRight" size={14} strokeWidth={2.5} />
+          </p>
+        </div>
+      </a>
+    ))}
+
+    <!-- Abschlusskarte: Coverage-Hinweis -->
+    <div class="snap-card area-card !aspect-auto bg-ink-deep border-white/10 flex items-center">
+      <div class="p-7">
+        <span class="led mb-5 !block" aria-hidden="true"></span>
+        <p class="font-display font-extrabold text-white text-xl leading-snug mb-3">Putney, Barnes, Hammersmith &amp; beyond.</p>
+        <p class="text-white/55 text-[0.9rem] leading-relaxed mb-5">If you’re anywhere outside East London, we most likely cover you — just ask.</p>
+        <a href="/contact" class="arrow-link arrow-link-light !text-[0.88rem]">
+          Check your postcode
+          <Icon name="ArrowRight" size={14} strokeWidth={2.4} />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2 mt-7 fade-in stagger-2">
+    <span class="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-light mr-2">Recent postcodes on the job sheet:</span>
+    {jobPostcodes.map((p) => (
+      <span class="pill !py-1.5 hover:border-volt hover:text-volt-deep transition-colors cursor-default">{p}</span>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const row = document.getElementById('area-row');
+    if (!row) return;
+    const step = () => Math.min(row.clientWidth * 0.8, 360);
+    document.getElementById('area-prev')?.addEventListener('click', () => row.scrollBy({ left: -step(), behavior: 'smooth' }));
+    document.getElementById('area-next')?.addEventListener('click', () => row.scrollBy({ left: step(), behavior: 'smooth' }));
+  });
+</script>

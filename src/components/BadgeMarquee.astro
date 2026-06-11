@@ -1,0 +1,30 @@
+---
+// Credentials-Laufband — echte Siegel + Fakten der alten Site.
+// Zwei identische Tracks für die Endlos-Schleife (aria-hidden auf Kopie).
+const items = [
+  { img: '/images/badges/niceic.png', alt: 'NICEIC Approved Contractor', label: 'NICEIC Approved Contractors' },
+  { img: '/images/badges/part-p.png', alt: 'Part P Electrical Safety — Registered Installer', label: 'Part P Registered' },
+  { img: '/images/badges/checkatrade.png', alt: 'Checkatrade — Recommended, Vetted, Monitored', label: 'On Checkatrade' },
+  { img: '/images/badges/trustatrader.png', alt: 'TrustATrader Approved Business', label: 'TrustATrader Approved' },
+  { img: '/images/badges/google.jpg', alt: 'Google Reviews', label: 'Reviewed on Google' },
+  { text: 'OLEV', label: 'OLEV-registered EV installers' },
+  { text: 'EST. 1994', label: 'Family-run for three decades' },
+  { text: 'SW6', label: 'Fulham born & based' },
+];
+---
+<div class="marquee py-2" style="--marquee-dur: 36s;">
+  {[false, true].map((copy) => (
+    <div class="marquee-track items-center" aria-hidden={copy ? 'true' : undefined}>
+      {items.map((it) => (
+        <div class="flex items-center gap-3.5 bg-white border border-line rounded-2xl pl-3 pr-5 py-2.5 shadow-sm flex-shrink-0">
+          {'img' in it && it.img ? (
+            <img src={it.img} alt={copy ? '' : it.alt} width="120" height="120" class="h-11 w-auto object-contain" loading="lazy" />
+          ) : (
+            <span class="h-11 min-w-11 px-2 rounded-xl bg-ink text-volt font-mono font-semibold text-[0.72rem] tracking-[0.08em] inline-flex items-center justify-center">{it.text}</span>
+          )}
+          <span class="font-display font-semibold text-ink text-[0.88rem] whitespace-nowrap">{it.label}</span>
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
