@@ -43,9 +43,9 @@ import { story, trust, fourReasons, team } from '../data/content';
     <div class="hero-glow glow-orb" style="width: 420px; height: 420px; bottom: -140px; left: -120px; background: rgb(255 184 28); opacity: 0.09;" aria-hidden="true"></div>
 
     <div class="container-mk relative z-10 pt-32 md:pt-40 pb-10">
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
         <!-- Copy -->
-        <div class="lg:col-span-7">
+        <div class="lg:col-span-6">
           <span class="eyebrow eyebrow-light mb-6">Family-run electrical contractors · South West London · Since 1994</span>
           <h1 class="heading-display text-balance mb-6">
             <span class="hero-dim">Two generations. One standard:</span>
@@ -73,7 +73,7 @@ import { story, trust, fourReasons, team } from '../data/content';
         </div>
 
         <!-- Foto-Komposition + DER SCHALTER -->
-        <div class="lg:col-span-5 relative">
+        <div class="lg:col-span-6 relative">
           <!-- Power-Switch: mobil über dem Foto, ab md als Wandschalter daneben -->
           <div class="flex justify-center mb-7 md:mb-0 md:absolute md:-left-14 md:top-1/2 md:-translate-y-1/2 md:z-20">
             <button class="power-switch" type="button" aria-pressed="false" aria-label="Flip the switch — turn the lights on">
@@ -82,26 +82,27 @@ import { story, trust, fourReasons, team } from '../data/content';
             </button>
           </div>
 
+          <!-- Der beschriftete MK-Van (Original der alten Site) -->
           <div class="photo-frame photo-frame-dark relative" data-tilt="2.5">
             <picture>
               <source
                 type="image/avif"
-                srcset="/images/hero-martin-zak-480.avif 480w, /images/hero-martin-zak-800.avif 800w, /images/hero-martin-zak-1300.avif 1300w"
-                sizes="(min-width: 1024px) 38vw, 92vw"
+                srcset="/images/hero-van-480.avif 480w, /images/hero-van-800.avif 800w, /images/hero-van-1240.avif 1240w"
+                sizes="(min-width: 1024px) 46vw, 92vw"
               />
               <img
-                src="/images/hero-martin-zak.jpg"
-                srcset="/images/hero-martin-zak-480.jpg 480w, /images/hero-martin-zak-800.jpg 800w, /images/hero-martin-zak.jpg 1300w"
-                sizes="(min-width: 1024px) 38vw, 92vw"
-                alt="Martin and his son Zak in front of the MK Electrical London van in Fulham"
-                width="1300"
-                height="1733"
-                class="hero-photo w-full aspect-[3/4] object-cover"
+                src="/images/hero-van-1240.jpg"
+                srcset="/images/hero-van-480.jpg 480w, /images/hero-van-800.jpg 800w, /images/hero-van-1240.jpg 1240w"
+                sizes="(min-width: 1024px) 46vw, 92vw"
+                alt="The liveried MK Electrical London van — 0207 385 5016, 24hrs — on a Fulham street"
+                width="1240"
+                height="930"
+                class="hero-photo w-full aspect-[4/3] object-cover"
                 loading="eager"
                 fetchpriority="high"
               />
             </picture>
-            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 60%, rgba(10,10,12,0.42) 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 62%, rgba(10,10,12,0.45) 100%);"></div>
           </div>
 
           <!-- Floating Trust-Card -->
@@ -114,10 +115,12 @@ import { story, trust, fourReasons, team } from '../data/content';
             </p>
           </div>
 
-          <!-- Floating Familien-Card -->
-          <div class="card-glass absolute -right-2 md:-right-5 bottom-8 px-5 py-4 z-10" data-parallax="0.1">
-            <p class="text-[0.65rem] font-mono font-semibold uppercase tracking-[0.16em] text-muted mb-1">Family-run since 1994</p>
-            <p class="signature !text-xl !rotate-0">Laura &amp; Martin</p>
+          <!-- Floating 24hrs-Card (steht so auf dem Van) -->
+          <div class="card-glass card-glass-dark absolute -right-2 md:-right-5 bottom-6 px-5 py-3.5 z-10 flex items-center gap-3" data-parallax="0.1">
+            <span class="led led-signal" aria-hidden="true"></span>
+            <p class="text-[0.68rem] font-mono font-semibold uppercase tracking-[0.14em] leading-relaxed">
+              24hrs on the van<br /><span class="text-white/55">Emergency call-outs</span>
+            </p>
           </div>
         </div>
       </div>

@@ -144,8 +144,25 @@ const aboutReviews = reviews.filter((r) => ['Faye', 'Nicky', 'John', 'Joseph'].i
     <div class="container-mk">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div class="relative fade-in">
-          <div class="photo-frame">
-            <img src="/images/hero-martin-zak.jpg" alt="Martin and Zak in front of the MK Electrical London van" width="1300" height="1733" class="w-full aspect-[4/5] object-cover" loading="lazy" />
+          <!-- Das Vater-Sohn-Foto (vorher Homepage-Hero) lebt jetzt hier -->
+          <div class="photo-frame" data-tilt="2.5">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/hero-martin-zak-480.avif 480w, /images/hero-martin-zak-800.avif 800w, /images/hero-martin-zak-1300.avif 1300w"
+                sizes="(min-width: 1024px) 44vw, 92vw"
+              />
+              <img
+                src="/images/hero-martin-zak.jpg"
+                srcset="/images/hero-martin-zak-480.jpg 480w, /images/hero-martin-zak-800.jpg 800w, /images/hero-martin-zak.jpg 1300w"
+                sizes="(min-width: 1024px) 44vw, 92vw"
+                alt="Martin and his son Zak in front of the MK Electrical London van in Fulham"
+                width="1300"
+                height="1733"
+                class="w-full aspect-[4/5] object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
           <div class="card-glass absolute -bottom-5 left-6 px-5 py-3.5 flex items-center gap-3">
             <span class="w-9 h-9 rounded-xl bg-ink text-white inline-flex items-center justify-center">

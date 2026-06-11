@@ -178,6 +178,7 @@ export const services: Service[] = [
     intro: [
       'We are fully qualified and experienced in installing electric vehicle (EV) charging points and are registered with OLEV.',
       'As more homes move toward electric heating and electric vehicles, installing a home charging point is becoming an increasingly practical and convenient solution.',
+      'With the rise in electric vehicle ownership, having your own charger at home offers: faster charging, greater convenience, lower long-term running costs and increased property appeal.',
       'Installation is usually straightforward — provided your property meets the necessary electrical and space requirements. We are happy to assess your property and advise accordingly.',
     ],
     includes: [
@@ -191,7 +192,7 @@ export const services: Service[] = [
         title: 'Use a properly qualified installer',
         paragraphs: [
           'If you are considering installing an EV charging point, it’s important to use a properly qualified and approved installer to ensure safety, compliance, and eligibility for any available grants.',
-          'Some useful places to visit when considering an EV charging installation: MyEnergi (Zappi), OZEV, NICEIC.',
+          'Some useful places to visit when considering an EV charging installation are: MyEnergi (Zappi), OZEV, NICEIC.',
         ],
       },
     ],
